@@ -8,8 +8,8 @@ const Settings = {
 };
 
 ReactDOM.render(
-  <App
-    placesCount={Settings.PLACES_COUNT}
-  />,
-  document.querySelector(`#root`)
+    <App
+      placesCount={Settings.PLACES_COUNT}
+    />,
+    document.querySelector(`#root`)
 );
