@@ -1,8 +1,9 @@
 export default [
   {
+    id: 11,
     name: `Beautiful &amp; luxurious apartment at great location`,
     type: `Apartment`,
-    rating: 4.8,
+    rating: 2,
     price: 120,
     priceText: `night`,
     bookmark: false,
@@ -40,9 +41,10 @@ export default [
     ],
   },
   {
+    id: 22,
     name: `Wood and stone place`,
     type: `Private room`,
-    rating: 4.5,
+    rating: 3.2,
     price: 80,
     priceText: `night`,
     bookmark: true,
@@ -76,9 +78,10 @@ export default [
     ],
   },
   {
+    id: 33,
     name: `Canal View Prinsengracht`,
     type: `Apartment`,
-    rating: 4.9,
+    rating: 4.7,
     price: 132,
     priceText: `night`,
     bookmark: false,
@@ -118,9 +121,10 @@ export default [
     ],
   },
   {
+    id: 44,
     name: `Nice. cozy. warm big bed apartment`,
     type: `Apartment`,
-    rating: 5,
+    rating: 4.8,
     price: 180,
     priceText: `night`,
     bookmark: true,
