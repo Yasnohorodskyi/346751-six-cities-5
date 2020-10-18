@@ -8,14 +8,13 @@ import PropertyScreen from "../property-screen/property-screen";
 
 
 const App = (props) => {
-  const {placesCount, offers, reviews} = props;
+  const {offers, reviews} = props;
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
           <MainPage
-            placesCount={placesCount}
             offers={offers}
           />
         </Route>
@@ -28,7 +27,10 @@ const App = (props) => {
           />
         </Route>
         <Route exact path="/offer/:id">
-          <PropertyScreen/>
+          <PropertyScreen
+            offer={offers[0]}
+            reviews={reviews}
+          />
         </Route>
       </Switch>
     </BrowserRouter>
@@ -36,7 +38,6 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  placesCount: PropTypes.number.isRequired,
   offers: PropTypes.array.isRequired,
   reviews: PropTypes.array.isRequired,
 };
