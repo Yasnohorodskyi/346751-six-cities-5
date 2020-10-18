@@ -1,6 +1,7 @@
 export default [
   {
     id: 11,
+    city: `Amsterdam`,
     name: `Beautiful &amp; luxurious apartment at great location`,
     type: `Apartment`,
     rating: 2,
@@ -42,6 +43,7 @@ export default [
   },
   {
     id: 22,
+    city: `Amsterdam`,
     name: `Wood and stone place`,
     type: `Private room`,
     rating: 3.2,
@@ -79,6 +81,7 @@ export default [
   },
   {
     id: 33,
+    city: `Amsterdam`,
     name: `Canal View Prinsengracht`,
     type: `Apartment`,
     rating: 4.7,
@@ -122,6 +125,7 @@ export default [
   },
   {
     id: 44,
+    city: `Amsterdam`,
     name: `Nice. cozy. warm big bed apartment`,
     type: `Apartment`,
     rating: 4.8,
