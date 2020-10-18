@@ -8,7 +8,7 @@ import PropertyScreen from "../property-screen/property-screen";
 
 
 const App = (props) => {
-  const {placesCount} = props;
+  const {placesCount, offers, reviews} = props;
 
   return (
     <BrowserRouter>
@@ -32,6 +32,8 @@ const App = (props) => {
 
 App.propTypes = {
   placesCount: PropTypes.number.isRequired,
+  offers: PropTypes.array.isRequired,
+  reviews: PropTypes.array.isRequired,
 };
 
 export default App;
