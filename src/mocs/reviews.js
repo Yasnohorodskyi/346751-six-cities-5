@@ -1,4 +1,4 @@
-export default = [
+export default [
   {
     name: `Max`,
     rating: 4,
