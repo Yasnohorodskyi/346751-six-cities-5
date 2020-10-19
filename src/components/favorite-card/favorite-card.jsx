@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 
 const FavoriteCard = (props) => {
   const {offer, onHover} = props;
   const {
+    id,
     name,
     type,
     rating,
@@ -19,9 +21,9 @@ const FavoriteCard = (props) => {
       onMouseOver={onHover}
     >
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={{pathname: `/offer/${id}`}}>
           <img className="place-card__image" src={images[0]} width="150" height="110" alt="Place image"/>
-        </a>
+        </Link>
       </div>
       <div className="favorites__card-info place-card__info">
         <div className="place-card__price-wrapper">
@@ -43,7 +45,9 @@ const FavoriteCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{name}</a>
+          <Link to={{pathname: `/offer/${id}`}}>
+            {name}
+          </Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -55,6 +59,7 @@ const FavoriteCard = (props) => {
 FavoriteCard.propTypes = {
   onHover: PropTypes.func.isRequired,
   offer: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
