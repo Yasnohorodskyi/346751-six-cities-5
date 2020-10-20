@@ -8,22 +8,32 @@ import PropertyScreen from "../property-screen/property-screen";
 
 
 const App = (props) => {
-  const {placesCount} = props;
+  const {offers, reviews} = props;
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <MainPage placesCount={placesCount} />
+          <MainPage
+            offers={offers}
+          />
         </Route>
         <Route exact path="/login">
           <AuthScreen/>
         </Route>
         <Route exact path="/favorites">
-          <FavoritesScreen/>
+          <FavoritesScreen
+            offers={offers}
+          />
         </Route>
         <Route exact path="/offer/:id">
-          <PropertyScreen/>
+          <PropertyScreen
+            offer={offers[0]}
+            firstNeighbourhood={offers[1]}
+            secondNeighbourhood={offers[2]}
+            thirdNeighbourhood={offers[3]}
+            reviews={reviews}
+          />
         </Route>
       </Switch>
     </BrowserRouter>
@@ -31,7 +41,8 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  placesCount: PropTypes.number.isRequired,
+  offers: PropTypes.array.isRequired,
+  reviews: PropTypes.array.isRequired,
 };
 
 export default App;
