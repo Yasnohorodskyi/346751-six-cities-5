@@ -28,10 +28,7 @@ const App = (props) => {
         </Route>
         <Route exact path="/offer/:id">
           <PropertyScreen
-            offer={offers[0]}
-            firstNeighbourhood={offers[1]}
-            secondNeighbourhood={offers[2]}
-            thirdNeighbourhood={offers[3]}
+            offers={offers}
             reviews={reviews}
           />
         </Route>

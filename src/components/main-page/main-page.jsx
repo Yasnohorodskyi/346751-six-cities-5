@@ -99,6 +99,8 @@ const MainPage = (props) => {
             <div className="cities__right-section">
               <OffersMap
                 offers={offers}
+                activeZoomControl={false}
+                activeScrollWheelZoom={true}
               />
             </div>
           </div>
@@ -111,6 +113,8 @@ const MainPage = (props) => {
 
 MainPage.propTypes = {
   offers: PropTypes.array.isRequired,
+  activeZoomControl: PropTypes.bool.isRequired,
+  activeScrollWheelZoom: PropTypes.bool.isRequired,
 };
 
 
