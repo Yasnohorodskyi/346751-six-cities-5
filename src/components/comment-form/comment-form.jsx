@@ -15,7 +15,6 @@ class CommentForm extends PureComponent {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    console.log(`Форма не потерялась. Рейтинг: ${this.state.rating}. Обзор: ${this.state.review}`);
   }
 
   handleFieldChange(evt) {
