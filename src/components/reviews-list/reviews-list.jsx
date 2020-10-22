@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ReviewItem from "../review-item/review-item";
+import CommentForm from "../comment-form/comment-form";
 
 const ReviewsList = (props) => {
   const {reviews} = props;
@@ -18,6 +19,7 @@ const ReviewsList = (props) => {
           ))
         }
       </ul>
+      <CommentForm/>
     </section>
   );
 };
