@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Header from "../header/header"
+import Header from "../header/header";
 import OfferList from "../offers-list/offers-list";
 import OffersMap from "../offers-map/offers-map";
 
