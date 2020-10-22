@@ -113,6 +113,8 @@ const MainPage = (props) => {
 
 MainPage.propTypes = {
   offers: PropTypes.array.isRequired,
+  activeZoomControl: PropTypes.bool.isRequired,
+  activeScrollWheelZoom: PropTypes.bool.isRequired,
 };
 
 
