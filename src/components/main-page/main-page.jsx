@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Header from "../header/header";
+import Main from "../main/main";
 import OfferList from "../offers-list/offers-list";
 import OffersMap from "../offers-map/offers-map";
 
@@ -11,7 +12,7 @@ const MainPage = (props) => {
   return (
     <div className="page page--gray page--main">
       <Header/>
-      <main className="page__main page__main--index">
+      <Main renderClassName={() => (`page__main--index`)}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
@@ -84,7 +85,7 @@ const MainPage = (props) => {
             </div>
           </div>
         </div>
-      </main>
+      </Main>
     </div>
   );
 };

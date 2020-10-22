@@ -2,6 +2,7 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import FavoriteCard from "../favorite-card/favorite-card";
 import Header from "../header/header";
+import Main from "../main/main";
 import Footer from "../footer/footer";
 
 class FavoritesScreen extends PureComponent {
@@ -19,8 +20,7 @@ class FavoritesScreen extends PureComponent {
     return (
       <div className="page">
         <Header/>
-
-        <main className="page__main page__main--favorites">
+        <Main renderClassName={() => (`page__main--favorites`)}>
           <div className="page__favorites-container container">
             <section className="favorites">
               <h1 className="favorites__title">Saved listing</h1>
@@ -87,7 +87,7 @@ class FavoritesScreen extends PureComponent {
               </ul>
             </section>
           </div>
-        </main>
+        </Main>
         <Footer/>
       </div>
     );

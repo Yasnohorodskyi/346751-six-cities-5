@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Header from "../header/header";
+import Main from "../main/main";
 import ReviewsList from "../reviews-list/reviews-list";
 import OffersMap from "../offers-map/offers-map";
 import NearOffersList from "../near-offers-list/near-offers-list";
@@ -28,7 +29,7 @@ const PropertyScreen = (props) => {
   return (
     <div className="page">
       <Header/>
-      <main className="page__main page__main--property">
+      <Main renderClassName={() => (`page__main--property`)}>
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
@@ -138,7 +139,7 @@ const PropertyScreen = (props) => {
         <NearOffersList
           nearOffers={nearOffers}
         />
-      </main>
+      </Main>
     </div>
   );
 };

@@ -17,8 +17,7 @@ class CommentForm extends PureComponent {
     evt.preventDefault();
   }
 
-  handleFieldChange(evt) {
-    const {name, value} = evt.target;
+  handleFieldChange({name, value}) {
     this.setState({[name]: value});
   }
 
