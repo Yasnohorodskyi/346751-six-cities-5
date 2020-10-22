@@ -18,20 +18,20 @@ const OfferCard = (props) => {
 
   return (
     <article
-      className="cities__place-card place-card"
       onMouseOver={onHover}
+      className={` ${props.renderClassName()}__place-card place-card`}
     >
-      {mark &&
+      {mark && props.renderMark() &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       }
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${props.renderClassName()}__image-wrapper place-card__image-wrapper`}>
         <Link to={{pathname: `/offer/${id}`}}>
           <img className="place-card__image" src={images[0]} width="260" height="200" alt="Place image" />
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className={`${props.renderClassName()}__card-info place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -75,6 +75,8 @@ OfferCard.propTypes = {
     mark: PropTypes.bool.isRequired,
   }).isRequired,
   onHover: PropTypes.func.isRequired,
+  renderClassName: PropTypes.func.isRequired,
+  renderMark: PropTypes.func.isRequired,
 };
 
 export default OfferCard;

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Header from "../header/header";
 import Main from "../main/main";
-import OfferList from "../offers-list/offers-list";
+import OffersList from "../offers-list/offers-list";
 import OffersMap from "../offers-map/offers-map";
 
 
@@ -70,11 +70,11 @@ const MainPage = (props) => {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                <OfferList
-                  offers={offers}
-                />
-              </div>
+              <OffersList
+                offers={offers}
+                renderClassName={() => (`cities__places-list tabs__content`)}
+                renderOfferMark={() => (true)}
+              />
             </section>
             <div className="cities__right-section">
               <OffersMap

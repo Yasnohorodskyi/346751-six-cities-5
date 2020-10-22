@@ -4,7 +4,7 @@ import Header from "../header/header";
 import Main from "../main/main";
 import ReviewsList from "../reviews-list/reviews-list";
 import OffersMap from "../offers-map/offers-map";
-import NearOffersList from "../near-offers-list/near-offers-list";
+import OffersList from "../offers-list/offers-list";
 
 const PropertyScreen = (props) => {
   const {offers, reviews} = props;
@@ -136,9 +136,16 @@ const PropertyScreen = (props) => {
             />
           </section>
         </section>
-        <NearOffersList
-          nearOffers={nearOffers}
-        />
+        <div className="container">
+          <section className="near-places places">
+            <h2 className="near-places__title">Other places in the neighbourhood</h2>
+            <OffersList
+              offers={nearOffers}
+              renderClassName={() => (`near-places__list`)}
+              renderOfferMark={() => (false)}
+            />
+          </section>
+        </div>
       </Main>
     </div>
   );

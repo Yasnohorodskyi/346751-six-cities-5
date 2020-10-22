@@ -12,26 +12,34 @@ class OffersList extends PureComponent {
   }
 
   render() {
-    const {offers} = this.props;
+    const {renderClassName, renderOfferMark, offers} = this.props;
 
     return (
-      offers.map((offer) => (
-        <OfferCard
-          key={`${offer[`id`]}`}
-          offer={offer}
-          onHover={() => {
-            this.setState(() => ({
-              activeCard: offer[`id`],
-            }));
-          }}
-        />
-      ))
+      <div className={`${renderClassName()} places__list`}>
+        {
+          offers.map((offer) => (
+            <OfferCard
+              key={`${offer[`id`]}`}
+              offer={offer}
+              onHover={() => {
+                this.setState(() => ({
+                  activeCard: offer[`id`],
+                }));
+              }}
+              renderClassName={() => (`cities`)}
+              renderMark={() => (renderOfferMark())}
+            />
+          ))
+        }
+      </div>
     );
   }
 }
 
 OffersList.propTypes = {
   offers: PropTypes.array.isRequired,
+  renderClassName: PropTypes.func.isRequired,
+  renderOfferMark: PropTypes.func.isRequired,
 };
 
 export default OffersList;
