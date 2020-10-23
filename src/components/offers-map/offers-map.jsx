@@ -10,6 +10,9 @@ class OffersMap extends PureComponent {
   }
 
   componentDidMount() {
+    const activeZoomControl = this.props.activeZoomControl;
+    const activeScrollWheelZoom = this.props.activeScrollWheelZoom;
+
     const city = [52.38333, 4.9];
     const icon = leaflet.icon({
       iconUrl: `img/pin.svg`,
@@ -19,7 +22,8 @@ class OffersMap extends PureComponent {
     const map = leaflet.map(this.mapContainer.current, {
       center: city,
       zoom,
-      zoomControl: false,
+      zoomControl: activeZoomControl,
+      scrollWheelZoom: activeScrollWheelZoom,
       marker: true
     });
     map.setView(city, zoom);
@@ -54,6 +58,8 @@ class OffersMap extends PureComponent {
 
 OffersMap.propTypes = {
   offers: PropTypes.array.isRequired,
+  activeZoomControl: PropTypes.bool.isRequired,
+  activeScrollWheelZoom: PropTypes.bool.isRequired,
 };
 
 export default OffersMap;
