@@ -11,7 +11,7 @@ import OffersList from "../offers-list/offers-list";
 const PropertyScreen = (props) => {
   const {offers, reviews} = props;
   const offer = offers[0];
-  const nearOffers = offers.slice(1);
+  const nearOffers = offers.slice(-3);
   const {
     name,
     type,
