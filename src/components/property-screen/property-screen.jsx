@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+
 import Header from "../header/header";
 import Main from "../main/main";
 import ReviewsList from "../reviews-list/reviews-list";
@@ -156,4 +158,11 @@ PropertyScreen.propTypes = {
   reviews: PropTypes.array.isRequired,
 };
 
-export default PropertyScreen;
+const mapStateToProps = (state) => ({
+  city: state.city,
+  offers: state.offers,
+  reviews: state.reviews,
+});
+
+export {PropertyScreen};
+export default connect(mapStateToProps)(PropertyScreen);

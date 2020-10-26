@@ -6,6 +6,7 @@ const OfferCard = (props) => {
   const {offer, onHover} = props;
   const {
     id,
+    city,
     name,
     type,
     rating,
@@ -53,7 +54,7 @@ const OfferCard = (props) => {
         </div>
         <h2 className="place-card__name">
           <Link to={{pathname: `/offer/${id}`}}>
-            {name}
+            {city} | {name}
           </Link>
         </h2>
         <p className="place-card__type">{type}</p>
@@ -65,6 +66,7 @@ const OfferCard = (props) => {
 OfferCard.propTypes = {
   offer: PropTypes.shape({
     id: PropTypes.number.isRequired,
+    city: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,

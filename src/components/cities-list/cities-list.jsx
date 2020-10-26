@@ -2,7 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Cities} from "../../const";
 
-const CitiesList = ({city}) => {
+const CitiesList = ({city, onCityChange}) => {
+
   return (
     <div className="tabs">
       <section className="locations container">
@@ -12,6 +13,9 @@ const CitiesList = ({city}) => {
               <li
                 key={item}
                 className="locations__item"
+                onClick={() => {
+                  onCityChange(item);
+                }}
               >
                 <a className={`locations__item-link tabs__item ${city === item ? `tabs__item--active` : ``}`}>
                   <span>{item}</span>
@@ -27,6 +31,7 @@ const CitiesList = ({city}) => {
 
 CitiesList.propTypes = {
   city: PropTypes.string.isRequired,
+  onCityChange: PropTypes.func.isRequired,
 };
 
 export default CitiesList;
