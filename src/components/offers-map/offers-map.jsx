@@ -7,6 +7,8 @@ class OffersMap extends PureComponent {
     super(props);
 
     this.mapContainer = React.createRef();
+    this.map = null;
+    this.markersGroup = null;
   }
 
   componentDidMount() {
@@ -19,26 +21,27 @@ class OffersMap extends PureComponent {
       iconSize: [27, 39]
     });
     const zoom = 12;
-    const map = leaflet.map(this.mapContainer.current, {
+    this.map = leaflet.map(this.mapContainer.current, {
       center: city,
       zoom,
       zoomControl: activeZoomControl,
       scrollWheelZoom: activeScrollWheelZoom,
       marker: true
     });
-    map.setView(city, zoom);
+    this.map.setView(city, zoom);
     leaflet
     .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
       attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
     })
-    .addTo(map);
+    .addTo(this.map);
 
     const {offers} = this.props;
+    this.markersGroup = leaflet.layerGroup().addTo(this.map);
     offers.forEach((offer) => {
       const offerCords = [offer[`coordinates`][0], offer[`coordinates`][1]];
       leaflet
         .marker(offerCords, {icon})
-        .addTo(map);
+        .addTo(this.markersGroup);
     });
   }
 
@@ -53,6 +56,22 @@ class OffersMap extends PureComponent {
         ></div>
       </section>
     );
+  }
+
+  componentDidUpdate() {
+    this.markersGroup.clearLayers();
+    const {offers} = this.props;
+    const icon = leaflet.icon({
+      iconUrl: `img/pin.svg`,
+      iconSize: [27, 39]
+    });
+    this.map.removeLayer(leaflet.marker);
+    offers.forEach((offer) => {
+      const offerCords = [offer[`coordinates`][0], offer[`coordinates`][1]];
+      leaflet
+        .marker(offerCords, {icon})
+        .addTo(this.markersGroup);
+    });
   }
 }
 
