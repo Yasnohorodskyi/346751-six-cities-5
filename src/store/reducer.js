@@ -5,9 +5,13 @@ import {Cities} from "../const";
 
 const initialState = {
   city: Cities[0],
+  offers: offers[Cities[0]],
+  reviews: reviews[0],
 };
 
-export const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
 
   return state;
 };
+
+export {reducer};
