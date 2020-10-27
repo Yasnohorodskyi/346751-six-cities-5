@@ -155,6 +155,25 @@ const PropertyScreen = (props) => {
 
 PropertyScreen.propTypes = {
   offers: PropTypes.array.isRequired,
+  offer: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired,
+    priceText: PropTypes.string.isRequired,
+    bookmark: PropTypes.bool.isRequired,
+    images: PropTypes.arrayOf(PropTypes.string).isRequired,
+    mark: PropTypes.bool.isRequired,
+    bedrooms: PropTypes.number.isRequired,
+    adults: PropTypes.number.isRequired,
+    inside: PropTypes.arrayOf(PropTypes.string).isRequired,
+    host: PropTypes.shape({
+      avatar: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      status: PropTypes.string.isRequired,
+    }).isRequired,
+    description: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
   reviews: PropTypes.array.isRequired,
 };
 
