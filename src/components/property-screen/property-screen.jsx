@@ -10,8 +10,8 @@ import OffersList from "../offers-list/offers-list";
 
 const PropertyScreen = (props) => {
   const {offers, reviews} = props;
-  const offer = offers[0];
-  const nearOffers = offers.slice(-3);
+  const [offer, ...rest] = offers;
+  const nearOffers = rest.slice(-3);
   const {
     name,
     type,
@@ -154,8 +154,7 @@ const PropertyScreen = (props) => {
 };
 
 PropertyScreen.propTypes = {
-  offers: PropTypes.array.isRequired,
-  offer: PropTypes.shape({
+  offers: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
@@ -173,7 +172,7 @@ PropertyScreen.propTypes = {
       status: PropTypes.string.isRequired,
     }).isRequired,
     description: PropTypes.arrayOf(PropTypes.string).isRequired,
-  }).isRequired,
+  })).isRequired,
   reviews: PropTypes.array.isRequired,
 };
 
