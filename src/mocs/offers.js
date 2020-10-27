@@ -2,10 +2,16 @@ export default {
   Paris: [
     {
       id: 1,
-      city: `Paris`,
+      city: {
+        name: `Paris`,
+        coordinates: [
+          48.8566,
+          2.3515,
+        ],
+      },
       coordinates: [
-        52.3109553943508,
-        4.81309666406198,
+        48.885133,
+        2.345715,
       ],
       name: `Beautiful &amp; luxurious apartment at great location`,
       type: `Apartment`,
@@ -48,10 +54,16 @@ export default {
     },
     {
       id: 2,
-      city: `Paris`,
+      city: {
+        name: `Paris`,
+        coordinates: [
+          48.8566,
+          2.3515,
+        ],
+      },
       coordinates: [
-        52.3209553943508,
-        4.82309666406198,
+        48.875813,
+        2.303380,
       ],
       name: `Beautiful &amp; luxurious apartment at great location`,
       type: `Apartment`,
@@ -94,10 +106,16 @@ export default {
     },
     {
       id: 3,
-      city: `Paris`,
+      city: {
+        name: `Paris`,
+        coordinates: [
+          48.8566,
+          2.3515,
+        ],
+      },
       coordinates: [
-        52.3309553943508,
-        4.83309666406198,
+        48.849690,
+        2.307311,
       ],
       name: `Beautiful &amp; luxurious apartment at great location`,
       type: `Apartment`,
@@ -140,10 +158,16 @@ export default {
     },
     {
       id: 4,
-      city: `Paris`,
+      city: {
+        name: `Paris`,
+        coordinates: [
+          48.8566,
+          2.3515,
+        ],
+      },
       coordinates: [
-        52.3409553943508,
-        4.84309666406198,
+        48.834862,
+        2.352521,
       ],
       name: `Beautiful &amp; luxurious apartment at great location`,
       type: `Apartment`,
@@ -186,10 +210,16 @@ export default {
     },
     {
       id: 5,
-      city: `Paris`,
+      city: {
+        name: `Paris`,
+        coordinates: [
+          48.8566,
+          2.3515,
+        ],
+      },
       coordinates: [
-        52.3509553943508,
-        4.85309666406198,
+        48.853952,
+        2.374704,
       ],
       name: `Beautiful &amp; luxurious apartment at great location`,
       type: `Apartment`,
@@ -232,10 +262,16 @@ export default {
     },
     {
       id: 6,
-      city: `Paris`,
+      city: {
+        name: `Paris`,
+        coordinates: [
+          48.8566,
+          2.3515,
+        ],
+      },
       coordinates: [
-        52.3609553943508,
-        4.86309666406198,
+        48.872201,
+        2.393799,
       ],
       name: `Beautiful &amp; luxurious apartment at great location`,
       type: `Apartment`,
@@ -280,10 +316,16 @@ export default {
   Cologne: [
     {
       id: 7,
-      city: `Cologne`,
+      city: {
+        name: `Cologne`,
+        coordinates: [
+          50.9307,
+          6.9383,
+        ],
+      },
       coordinates: [
-        52.3709553943508,
-        4.8309666406198,
+        50.961080,
+        6.931689,
       ],
       name: `Beautiful &amp; luxurious apartment at great location`,
       type: `Apartment`,
@@ -326,10 +368,16 @@ export default {
     },
     {
       id: 8,
-      city: `Cologne`,
+      city: {
+        name: `Cologne`,
+        coordinates: [
+          50.9307,
+          6.9383,
+        ],
+      },
       coordinates: [
-        52.3909553943508,
-        4.88309666406198,
+        50.959128,
+        6.973536,
       ],
       name: `Beautiful &amp; luxurious apartment at great location`,
       type: `Apartment`,
@@ -372,10 +420,16 @@ export default {
     },
     {
       id: 9,
-      city: `Cologne`,
+      city: {
+        name: `Cologne`,
+        coordinates: [
+          50.9307,
+          6.9383,
+        ],
+      },
       coordinates: [
-        52.3909553943508,
-        4.89309666406198,
+        50.940353,
+        6.978292,
       ],
       name: `Beautiful &amp; luxurious apartment at great location`,
       type: `Apartment`,
@@ -418,10 +472,16 @@ export default {
     },
     {
       id: 10,
-      city: `Cologne`,
+      city: {
+        name: `Cologne`,
+        coordinates: [
+          50.9307,
+          6.9383,
+        ],
+      },
       coordinates: [
-        52.3009553943508,
-        4.80309666406198,
+        50.935546,
+        6.938584,
       ],
       name: `Beautiful &amp; luxurious apartment at great location`,
       type: `Apartment`,
@@ -464,10 +524,16 @@ export default {
     },
     {
       id: 11,
-      city: `Cologne`,
+      city: {
+        name: `Cologne`,
+        coordinates: [
+          50.9307,
+          6.9383,
+        ],
+      },
       coordinates: [
-        52.3109553943508,
-        4.81309666406198,
+        50.953121,
+        6.906485,
       ],
       name: `Beautiful &amp; luxurious apartment at great location`,
       type: `Apartment`,
@@ -510,10 +576,16 @@ export default {
     },
     {
       id: 12,
-      city: `Cologne`,
+      city: {
+        name: `Cologne`,
+        coordinates: [
+          50.9307,
+          6.9383,
+        ],
+      },
       coordinates: [
-        52.3209553943508,
-        4.82309666406198,
+        50.968887,
+        6.921940,
       ],
       name: `Beautiful &amp; luxurious apartment at great location`,
       type: `Apartment`,
@@ -558,10 +630,68 @@ export default {
   Brussels: [
     {
       id: 13,
-      city: `Brussels`,
+      city: {
+        name: `Brussels`,
+        coordinates: [
+          50.851309,
+          4.351718,
+        ],
+      },
       coordinates: [
-        52.3309553943508,
-        4.8309666406198,
+        50.850789,
+        4.359795,
+      ],
+      name: `Beautiful &amp; luxurious apartment at great location`,
+      type: `Apartment`,
+      rating: 2,
+      price: 120,
+      priceText: `night`,
+      bookmark: false,
+      images: [
+        `img/room.jpg`,
+        `img/apartment-01.jpg`,
+        `img/apartment-02.jpg`,
+        `img/apartment-03.jpg`,
+        `img/studio-01.jpg`,
+        `img/apartment-01.jpg`,
+      ],
+      mark: true,
+      bedrooms: 3,
+      adults: 3,
+      inside: [
+        `Wi-Fi`,
+        `Washing machine`,
+        `Towels`,
+        `Heating`,
+        `Coffee machine`,
+        `Baby seat`,
+        `Kitchen`,
+        `Dishwasher`,
+        `Cabel TV`,
+        `Fridge`,
+      ],
+      host: {
+        avatar: `img/avatar-angelina.jpg`,
+        name: `Angelina`,
+        status: `Pro`,
+      },
+      description: [
+        `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Cologne. The building is green and from 18th century.`,
+        `An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.`,
+      ],
+    },
+    {
+      id: 14,
+      city: {
+        name: `Brussels`,
+        coordinates: [
+          50.851309,
+          4.351718,
+        ],
+      },
+      coordinates: [
+        50.860789,
+        4.369795,
       ],
       name: `Beautiful &amp; luxurious apartment at great location`,
       type: `Apartment`,
@@ -605,11 +735,17 @@ export default {
   ],
   Amsterdam: [
     {
-      id: 14,
-      city: `Amsterdam`,
+      id: 15,
+      city: {
+        name: `Amsterdam`,
+        coordinates: [
+          52.373057,
+          4.892557,
+        ],
+      },
       coordinates: [
-        52.3909553943508,
-        4.85309666406198,
+        52.403885,
+        4.915050,
       ],
       name: `Beautiful &amp; luxurious apartment at great location`,
       type: `Apartment`,
@@ -651,11 +787,17 @@ export default {
       ],
     },
     {
-      id: 15,
-      city: `Amsterdam`,
+      id: 16,
+      city: {
+        name: `Amsterdam`,
+        coordinates: [
+          52.373057,
+          4.892557,
+        ],
+      },
       coordinates: [
-        52.369553943508,
-        4.85309666406198,
+        52.392788,
+        4.868514,
       ],
       name: `Wood and stone place`,
       type: `Private room`,
@@ -693,11 +835,17 @@ export default {
       ],
     },
     {
-      id: 16,
-      city: `Amsterdam`,
+      id: 17,
+      city: {
+        name: `Amsterdam`,
+        coordinates: [
+          52.373057,
+          4.892557,
+        ],
+      },
       coordinates: [
-        52.3909553943508,
-        4.929309666406198,
+        52.375172,
+        4.853528,
       ],
       name: `Canal View Prinsengracht`,
       type: `Apartment`,
@@ -741,11 +889,17 @@ export default {
       ],
     },
     {
-      id: 17,
-      city: `Amsterdam`,
+      id: 18,
+      city: {
+        name: `Amsterdam`,
+        coordinates: [
+          52.373057,
+          4.892557,
+        ],
+      },
       coordinates: [
-        52.3809553943508,
-        4.939309666406198,
+        52.353927,
+        4.883895,
       ],
       name: `Nice. cozy. warm big bed apartment`,
       type: `Apartment`,
@@ -789,11 +943,69 @@ export default {
   ],
   Hamburg: [
     {
-      id: 18,
-      city: `Hamburg`,
+      id: 19,
+      city: {
+        name: `Hamburg`,
+        coordinates: [
+          53.550682,
+          9.992895,
+        ],
+      },
       coordinates: [
-        52.3709553943508,
-        4.8309666406198,
+        53.573421,
+        9.999062,
+      ],
+      name: `Beautiful &amp; luxurious apartment at great location`,
+      type: `Apartment`,
+      rating: 2,
+      price: 120,
+      priceText: `night`,
+      bookmark: false,
+      images: [
+        `img/room.jpg`,
+        `img/apartment-01.jpg`,
+        `img/apartment-02.jpg`,
+        `img/apartment-03.jpg`,
+        `img/studio-01.jpg`,
+        `img/apartment-01.jpg`,
+      ],
+      mark: true,
+      bedrooms: 3,
+      adults: 3,
+      inside: [
+        `Wi-Fi`,
+        `Washing machine`,
+        `Towels`,
+        `Heating`,
+        `Coffee machine`,
+        `Baby seat`,
+        `Kitchen`,
+        `Dishwasher`,
+        `Cabel TV`,
+        `Fridge`,
+      ],
+      host: {
+        avatar: `img/avatar-angelina.jpg`,
+        name: `Angelina`,
+        status: `Pro`,
+      },
+      description: [
+        `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Cologne. The building is green and from 18th century.`,
+        `An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.`,
+      ],
+    },
+    {
+      id: 20,
+      city: {
+        name: `Hamburg`,
+        coordinates: [
+          53.550682,
+          9.992895,
+        ],
+      },
+      coordinates: [
+        53.583421,
+        10.009062,
       ],
       name: `Beautiful &amp; luxurious apartment at great location`,
       type: `Apartment`,
@@ -837,11 +1049,69 @@ export default {
   ],
   Dusseldorf: [
     {
-      id: 19,
-      city: `Dusseldorf`,
+      id: 21,
+      city: {
+        name: `Dusseldorf`,
+        coordinates: [
+          51.238470,
+          6.790150,
+        ],
+      },
       coordinates: [
-        52.3909553943508,
-        4.8909666406198,
+        51.238470,
+        6.790150,
+      ],
+      name: `Beautiful &amp; luxurious apartment at great location`,
+      type: `Apartment`,
+      rating: 2,
+      price: 120,
+      priceText: `night`,
+      bookmark: false,
+      images: [
+        `img/room.jpg`,
+        `img/apartment-01.jpg`,
+        `img/apartment-02.jpg`,
+        `img/apartment-03.jpg`,
+        `img/studio-01.jpg`,
+        `img/apartment-01.jpg`,
+      ],
+      mark: true,
+      bedrooms: 3,
+      adults: 3,
+      inside: [
+        `Wi-Fi`,
+        `Washing machine`,
+        `Towels`,
+        `Heating`,
+        `Coffee machine`,
+        `Baby seat`,
+        `Kitchen`,
+        `Dishwasher`,
+        `Cabel TV`,
+        `Fridge`,
+      ],
+      host: {
+        avatar: `img/avatar-angelina.jpg`,
+        name: `Angelina`,
+        status: `Pro`,
+      },
+      description: [
+        `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Cologne. The building is green and from 18th century.`,
+        `An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.`,
+      ],
+    },
+    {
+      id: 22,
+      city: {
+        name: `Dusseldorf`,
+        coordinates: [
+          51.238470,
+          6.790150,
+        ],
+      },
+      coordinates: [
+        51.248470,
+        6.800150,
       ],
       name: `Beautiful &amp; luxurious apartment at great location`,
       type: `Apartment`,
