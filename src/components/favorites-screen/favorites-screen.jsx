@@ -1,8 +1,10 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import FavoriteCard from "../favorite-card/favorite-card";
+import {connect} from "react-redux";
+
 import Header from "../header/header";
 import Main from "../main/main";
+import FavoriteCard from "../favorite-card/favorite-card";
 import Footer from "../footer/footer";
 
 class FavoritesScreen extends PureComponent {
@@ -98,4 +100,9 @@ FavoritesScreen.propTypes = {
   offers: PropTypes.array.isRequired,
 };
 
-export default FavoritesScreen;
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+});
+
+export {FavoritesScreen};
+export default connect(mapStateToProps)(FavoritesScreen);

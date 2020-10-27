@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+
 import Header from "../header/header";
 import Main from "../main/main";
 import ReviewsList from "../reviews-list/reviews-list";
@@ -8,8 +10,8 @@ import OffersList from "../offers-list/offers-list";
 
 const PropertyScreen = (props) => {
   const {offers, reviews} = props;
-  const offer = offers[0];
-  const nearOffers = offers.slice(1);
+  const [offer, ...rest] = offers;
+  const nearOffers = rest.slice(-3);
   const {
     name,
     type,
@@ -174,4 +176,11 @@ PropertyScreen.propTypes = {
   reviews: PropTypes.array.isRequired,
 };
 
-export default PropertyScreen;
+const mapStateToProps = (state) => ({
+  city: state.city,
+  offers: state.offers,
+  reviews: state.reviews,
+});
+
+export {PropertyScreen};
+export default connect(mapStateToProps)(PropertyScreen);
