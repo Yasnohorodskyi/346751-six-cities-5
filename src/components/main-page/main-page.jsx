@@ -11,7 +11,7 @@ import OffersMap from "../offers-map/offers-map";
 import SortingOptions from "../sorting-options/sorting-options";
 
 
-const MainPage = ({offers, city, onCityChange}) => {
+const MainPage = ({offers, city, onCityChange, sortOption, onSortingOptionChange}) => {
 
   return (
     <div className="page page--gray page--main">
@@ -27,7 +27,11 @@ const MainPage = ({offers, city, onCityChange}) => {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{(offers.length)} places to stay in {city}</b>
-              <SortingOptions />
+              <SortingOptions
+                sortOption={sortOption}
+                offers={offers}
+                onSortingOptionChange={onSortingOptionChange}
+              />
               <OffersList
                 offers={offers}
                 renderClassName={() => (`cities__places-list tabs__content`)}
@@ -53,17 +57,23 @@ MainPage.propTypes = {
   city: PropTypes.string.isRequired,
   onCityChange: PropTypes.func.isRequired,
   offers: PropTypes.array.isRequired,
+  sortOption: PropTypes.string.isRequired,
+  onSortingOptionChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
   offers: state.offers,
+  sortOption: state.sortOption,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onCityChange(item) {
     dispatch(ActionCreator.cityChange(item));
     dispatch(ActionCreator.getOffersList(item));
+  },
+  onSortingOptionChange(item, offers = offers) {
+    dispatch(ActionCreator.sortingOptionChange(item, offers = offers));
   }
 });
 

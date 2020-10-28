@@ -2,12 +2,13 @@ import {extend} from "../utils.js";
 import {ActionType} from "./action";
 import offers from "../mocs/offers";
 import reviews from "../mocs/reviews";
-import {Cities} from "../const";
+import {Cities, SortOptions} from "../const";
 
 const initialState = {
   city: Cities[0],
   offers: offers[Cities[0]],
   reviews,
+  sortOption: SortOptions[`popular`],
 };
 
 const reducer = (state = initialState, action) => {
@@ -20,6 +21,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.GET_OFFERS_LIST:
       return extend(state, {
         offers: offers[action.payload],
+      });
+    case ActionType.SORTING_OPTION_CHANGE:
+      return extend(state, {
+        offers: action.payload,
       });
   }
 

@@ -15,8 +15,8 @@ export default {
       ],
       name: `Beautiful &amp; luxurious apartment at great location`,
       type: `Apartment`,
-      rating: 2,
-      price: 120,
+      rating: 3,
+      price: 100,
       priceText: `night`,
       bookmark: false,
       images: [
@@ -119,8 +119,8 @@ export default {
       ],
       name: `Beautiful &amp; luxurious apartment at great location`,
       type: `Apartment`,
-      rating: 2,
-      price: 120,
+      rating: 4.5,
+      price: 150,
       priceText: `night`,
       bookmark: false,
       images: [
@@ -171,8 +171,8 @@ export default {
       ],
       name: `Beautiful &amp; luxurious apartment at great location`,
       type: `Apartment`,
-      rating: 2,
-      price: 120,
+      rating: 3.4,
+      price: 130,
       priceText: `night`,
       bookmark: false,
       images: [
@@ -224,7 +224,7 @@ export default {
       name: `Beautiful &amp; luxurious apartment at great location`,
       type: `Apartment`,
       rating: 2,
-      price: 120,
+      price: 110,
       priceText: `night`,
       bookmark: false,
       images: [
@@ -275,8 +275,8 @@ export default {
       ],
       name: `Beautiful &amp; luxurious apartment at great location`,
       type: `Apartment`,
-      rating: 2,
-      price: 120,
+      rating: 5,
+      price: 110,
       priceText: `night`,
       bookmark: false,
       images: [
