@@ -8,7 +8,7 @@ const initialState = {
   city: Cities[0],
   offers: offers[Cities[0]],
   reviews,
-  sortOption: SortOptions[`popular`],
+  sortOption: SortOptions.popular,
 };
 
 const reducer = (state = initialState, action) => {

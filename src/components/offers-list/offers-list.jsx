@@ -12,36 +12,44 @@ class OffersList extends PureComponent {
 
     this.state = {
       activeCard: ``,
-      sortOption: this.props.sortOption,
     };
+
+    this._sortingOffers = this._sortingOffers.bind(this);
   }
 
-  sortingOffers() {
-    const {offers} = this.props;
+  _sortingOffers() {
+    const {offers, sortOption} = this.props;
+    let sortedOffers = offers.slice(0);
 
-    switch (this.state.sortOption) {
+    switch (sortOption) {
       case SortOptions.popular:
-        return offers
+        return offers;
 
       case SortOptions.lowToHigh:
-        const offers = offers
-          .slice(0)
-          .sort((a,b) => {
-          return a.price - b.price;
-        });
-        return offers
+        sortedOffers.sort((a, b) => (a.price > b.price ? 1 : -1));
+        return sortedOffers;
+
+      case SortOptions.highToLow:
+        sortedOffers.sort((a, b) => (a.price > b.price ? -1 : 1));
+        return sortedOffers;
+
+      case SortOptions.rating:
+        sortedOffers.sort((a, b) => (a.rating > b.rating ? -1 : 1));
+        return sortedOffers;
     }
+
+    return offers;
   }
 
   render() {
-    const {renderClassName, renderOfferMark, offers} = this.props;
+    const {renderClassName, renderOfferMark} = this.props;
 
     return (
       <div className={`${renderClassName()} places__list`}>
         {
-          offers.map((offer, i) => (
+          this._sortingOffers().map((offer) => (
             <OfferCard
-              key={`${i}-offer`}
+              key={offer.id}
               offer={offer}
               onHover={() => {
                 this.setState(() => ({
