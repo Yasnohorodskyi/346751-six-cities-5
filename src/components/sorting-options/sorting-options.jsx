@@ -1,5 +1,7 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../store/action";
 import {SortOptions} from "../../const";
 
 class SortingOptions extends PureComponent {
@@ -12,7 +14,7 @@ class SortingOptions extends PureComponent {
   }
 
   render() {
-    const {sortOption, offers, onSortingOptionChange} = this.props;
+    const {sortOption, onSortingOptionChange} = this.props;
 
     return (
       <form className="places__sorting" action="#" method="get">
@@ -37,7 +39,7 @@ class SortingOptions extends PureComponent {
                 className={`places__option ${sortOption === SortOptions[option] ? `places__option--active` : ``}`}
                 tabIndex="0"
                 onClick={() => {
-                  onSortingOptionChange(SortOptions[option], offers);
+                  onSortingOptionChange(SortOptions[option]);
                 }}
               >
                 {SortOptions[option]}
@@ -52,8 +54,18 @@ class SortingOptions extends PureComponent {
 
 SortingOptions.propTypes = {
   sortOption: PropTypes.string.isRequired,
-  offers: PropTypes.array.isRequired,
   onSortingOptionChange: PropTypes.func.isRequired,
 };
 
-export default SortingOptions;
+const mapStateToProps = (state) => ({
+  sortOption: state.sortOption,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onSortingOptionChange(item) {
+    dispatch(ActionCreator.sortingOptionChange(item));
+  }
+});
+
+export {SortingOptions};
+export default connect(mapStateToProps, mapDispatchToProps)(SortingOptions);

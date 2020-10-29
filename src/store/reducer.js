@@ -24,7 +24,7 @@ const reducer = (state = initialState, action) => {
       });
     case ActionType.SORTING_OPTION_CHANGE:
       return extend(state, {
-        offers: action.payload,
+        sortOption: action.payload,
       });
   }
 
