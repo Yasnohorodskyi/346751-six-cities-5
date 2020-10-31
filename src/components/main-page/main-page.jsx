@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
 
+import {SortOptions} from "../../const";
+
 import Header from "../header/header";
 import Main from "../main/main";
 import CitiesList from "../cities-list/cities-list";
@@ -11,7 +13,30 @@ import OffersMap from "../offers-map/offers-map";
 import SortingOptions from "../sorting-options/sorting-options";
 
 
-const MainPage = ({offers, city, onCityChange}) => {
+const MainPage = ({offers, city, onCityChange, sortOption}) => {
+
+  const sortingOffers = () => {
+    let sortedOffers = offers.slice(0);
+
+    switch (sortOption) {
+      case SortOptions.popular:
+        return offers;
+
+      case SortOptions.lowToHigh:
+        sortedOffers.sort((a, b) => (a.price > b.price ? 1 : -1));
+        return sortedOffers;
+
+      case SortOptions.highToLow:
+        sortedOffers.sort((a, b) => (a.price > b.price ? -1 : 1));
+        return sortedOffers;
+
+      case SortOptions.rating:
+        sortedOffers.sort((a, b) => (a.rating > b.rating ? -1 : 1));
+        return sortedOffers;
+    }
+
+    return offers;
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -29,6 +54,7 @@ const MainPage = ({offers, city, onCityChange}) => {
               <b className="places__found">{(offers.length)} places to stay in {city}</b>
               <SortingOptions />
               <OffersList
+                offers={sortingOffers()}
                 renderClassName={() => (`cities__places-list tabs__content`)}
                 renderOfferMark={() => (true)}
               />
@@ -52,11 +78,13 @@ MainPage.propTypes = {
   city: PropTypes.string.isRequired,
   onCityChange: PropTypes.func.isRequired,
   offers: PropTypes.array.isRequired,
+  sortOption: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
   offers: state.offers,
+  sortOption: state.sortOption,
 });
 
 const mapDispatchToProps = (dispatch) => ({

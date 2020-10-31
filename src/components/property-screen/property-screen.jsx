@@ -10,8 +10,7 @@ import OffersList from "../offers-list/offers-list";
 
 const PropertyScreen = (props) => {
   const {offers, reviews} = props;
-  const [offer, ...rest] = offers;
-  const nearOffers = rest.slice(-3);
+  const [offer] = offers;
   const {
     name,
     type,
@@ -132,7 +131,7 @@ const PropertyScreen = (props) => {
           </div>
           <section className="property__map map">
             <OffersMap
-              offers={nearOffers}
+              offers={offers.slice(-3)}
               activeZoomControl={true}
               activeScrollWheelZoom={false}
             />
@@ -142,7 +141,7 @@ const PropertyScreen = (props) => {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <OffersList
-              offers={nearOffers}
+              offers={offers.slice(-3)}
               renderClassName={() => (`near-places__list`)}
               renderOfferMark={() => (false)}
             />
