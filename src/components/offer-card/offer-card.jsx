@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 
 const OfferCard = (props) => {
-  const {offer, onHover} = props;
+  const {offer, onHover, onUnHover} = props;
   const {
     id,
     name,
@@ -18,7 +18,8 @@ const OfferCard = (props) => {
 
   return (
     <article
-      onMouseOver={onHover}
+      onMouseEnter={onHover}
+      onMouseLeave={onUnHover}
       className={` ${props.renderClassName()}__place-card place-card`}
     >
       {mark && props.renderMark() &&
@@ -75,6 +76,7 @@ OfferCard.propTypes = {
     mark: PropTypes.bool.isRequired,
   }).isRequired,
   onHover: PropTypes.func.isRequired,
+  onUnHover: PropTypes.func.isRequired,
   renderClassName: PropTypes.func.isRequired,
   renderMark: PropTypes.func.isRequired,
 };

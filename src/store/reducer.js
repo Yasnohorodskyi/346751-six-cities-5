@@ -9,6 +9,7 @@ const initialState = {
   offers: offers[Cities[0]],
   reviews,
   sortOption: SortOptions.popular,
+  activeCard: -1,
 };
 
 const reducer = (state = initialState, action) => {
@@ -25,6 +26,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.SORTING_OPTION_CHANGE:
       return extend(state, {
         sortOption: action.payload,
+      });
+    case ActionType.ACTIVE_CARD_CHANGE:
+      return extend(state, {
+        activeCard: action.payload,
       });
   }
 

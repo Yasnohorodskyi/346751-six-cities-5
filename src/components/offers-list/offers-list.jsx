@@ -1,5 +1,7 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../store/action";
 
 import OfferCard from "../offer-card/offer-card";
 
@@ -14,7 +16,7 @@ class OffersList extends PureComponent {
   }
 
   render() {
-    const {renderClassName, renderOfferMark, offers} = this.props;
+    const {renderClassName, renderOfferMark, offers, onCardMouseOver} = this.props;
 
     return (
       <div className={`${renderClassName()} places__list`}>
@@ -27,6 +29,10 @@ class OffersList extends PureComponent {
                 this.setState(() => ({
                   activeCard: offer[`id`],
                 }));
+                onCardMouseOver(offer.id);
+              }}
+              onUnHover={ () => {
+                onCardMouseOver(-1);
               }}
               renderClassName={() => (`cities`)}
               renderMark={() => (renderOfferMark())}
@@ -42,6 +48,18 @@ OffersList.propTypes = {
   offers: PropTypes.array.isRequired,
   renderClassName: PropTypes.func.isRequired,
   renderOfferMark: PropTypes.func.isRequired,
+  onCardMouseOver: PropTypes.func.isRequired,
 };
 
-export default OffersList;
+const mapStateToProps = (state) => ({
+  activeCard: state.activeCard,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onCardMouseOver(cardId) {
+    dispatch(ActionCreator.activeCardChange(cardId));
+  },
+});
+
+export {OffersList};
+export default connect(mapStateToProps, mapDispatchToProps)(OffersList);

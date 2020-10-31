@@ -1,5 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 import leaflet from "leaflet";
 
 class OffersMap extends PureComponent {
@@ -12,16 +13,13 @@ class OffersMap extends PureComponent {
   }
 
   componentDidMount() {
+    const {offers, activeCard} = this.props;
     const activeZoomControl = this.props.activeZoomControl;
     const activeScrollWheelZoom = this.props.activeScrollWheelZoom;
-    const {offers} = this.props;
 
     const centerCity = offers[0][`city`][`coordinates`];
-    const icon = leaflet.icon({
-      iconUrl: `img/pin.svg`,
-      iconSize: [27, 39]
-    });
     const zoom = 12;
+
     this.map = leaflet.map(this.mapContainer.current, {
       center: centerCity,
       zoom,
@@ -29,6 +27,7 @@ class OffersMap extends PureComponent {
       scrollWheelZoom: activeScrollWheelZoom,
       marker: true
     });
+    let icon;
     this.map.setView(centerCity, zoom);
     leaflet
     .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
@@ -37,8 +36,21 @@ class OffersMap extends PureComponent {
     .addTo(this.map);
 
     this.markersGroup = leaflet.layerGroup().addTo(this.map);
-    offers.forEach((offer) => {
-      const offerCords = [offer[`coordinates`][0], offer[`coordinates`][1]];
+    offers.map((offer) => {
+      const offerCords = [offer.coordinates[0], offer.coordinates[1]];
+
+      if (offer.id === activeCard) {
+        icon = leaflet.icon({
+          iconUrl: `img/pin-active.svg`,
+          iconSize: [27, 39]
+        });
+      } else {
+        icon = leaflet.icon({
+          iconUrl: `img/pin.svg`,
+          iconSize: [27, 39]
+        });
+      }
+
       leaflet
         .marker(offerCords, {icon})
         .addTo(this.markersGroup);
@@ -60,16 +72,27 @@ class OffersMap extends PureComponent {
 
   componentDidUpdate() {
     this.markersGroup.clearLayers();
-    const {offers} = this.props;
+    const {offers, activeCard} = this.props;
     const centerCity = offers[0][`city`][`coordinates`];
     this.map.setView(centerCity);
-    const icon = leaflet.icon({
-      iconUrl: `img/pin.svg`,
-      iconSize: [27, 39]
-    });
     this.map.removeLayer(leaflet.marker);
-    offers.forEach((offer) => {
-      const offerCords = [offer[`coordinates`][0], offer[`coordinates`][1]];
+    let icon;
+
+    offers.map((offer) => {
+      const offerCords = [offer.coordinates[0], offer.coordinates[1]];
+
+      if (offer.id === activeCard) {
+        icon = leaflet.icon({
+          iconUrl: `img/pin-active.svg`,
+          iconSize: [27, 39]
+        });
+      } else {
+        icon = leaflet.icon({
+          iconUrl: `img/pin.svg`,
+          iconSize: [27, 39]
+        });
+      }
+
       leaflet
         .marker(offerCords, {icon})
         .addTo(this.markersGroup);
@@ -79,8 +102,14 @@ class OffersMap extends PureComponent {
 
 OffersMap.propTypes = {
   offers: PropTypes.array.isRequired,
+  activeCard: PropTypes.number.isRequired,
   activeZoomControl: PropTypes.bool.isRequired,
   activeScrollWheelZoom: PropTypes.bool.isRequired,
 };
 
-export default OffersMap;
+const mapStateToProps = (state) => ({
+  activeCard: state.activeCard,
+});
+
+export {OffersMap};
+export default connect(mapStateToProps)(OffersMap);
