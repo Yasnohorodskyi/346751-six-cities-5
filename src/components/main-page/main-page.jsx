@@ -12,6 +12,9 @@ import OffersList from "../offers-list/offers-list";
 import OffersMap from "../offers-map/offers-map";
 import SortingOptions from "../sorting-options/sorting-options";
 
+import withOpenState from "../../hocs/with-open-state/with-open-state";
+
+const SortingOptionsWithOpenState = withOpenState(SortingOptions);
 
 const MainPage = ({offers, city, onCityChange, sortOption}) => {
 
@@ -52,7 +55,7 @@ const MainPage = ({offers, city, onCityChange, sortOption}) => {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{(offers.length)} places to stay in {city}</b>
-              <SortingOptions />
+              <SortingOptionsWithOpenState />
               <OffersList
                 offers={sortingOffers()}
                 renderClassName={() => (`cities__places-list tabs__content`)}
