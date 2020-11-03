@@ -6,7 +6,8 @@ import {Cities, SortOptions} from "../const";
 
 const initialState = {
   city: Cities[0],
-  offers: offers[Cities[0]],
+  // offers: offers[Cities[0]],
+  offers,
   reviews,
   sortOption: SortOptions.popular,
   activeCard: -1,
@@ -19,10 +20,6 @@ const reducer = (state = initialState, action) => {
         city: action.payload,
       });
 
-    case ActionType.GET_OFFERS_LIST:
-      return extend(state, {
-        offers: offers[action.payload],
-      });
     case ActionType.SORTING_OPTION_CHANGE:
       return extend(state, {
         sortOption: action.payload,

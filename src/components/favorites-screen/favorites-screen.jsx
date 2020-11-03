@@ -27,6 +27,9 @@ class FavoritesScreen extends PureComponent {
             <section className="favorites">
               <h1 className="favorites__title">Saved listing</h1>
               <ul className="favorites__list">
+                {
+
+                }
                 <li className="favorites__locations-items">
                   <div className="favorites__locations locations locations--current">
                     <div className="locations__item">
@@ -37,8 +40,8 @@ class FavoritesScreen extends PureComponent {
                   </div>
                   <div className="favorites__places">
                     {
-                      offers.map((offer) => {
-                        if (offer[`city`] === `Amsterdam`) {
+                      offers[`Amsterdam`].map((offer) => {
+                        if (offer.bookmark) {
                           return (
                             <FavoriteCard
                               key={`${offer[`id`]}-${offer[`city`]}`}
@@ -51,6 +54,7 @@ class FavoritesScreen extends PureComponent {
                             />
                           );
                         }
+
                         return false;
                       })
                     }
@@ -67,8 +71,8 @@ class FavoritesScreen extends PureComponent {
                   </div>
                   <div className="favorites__places">
                     {
-                      offers.map((offer) => {
-                        if (offer[`city`] === `Cologne`) {
+                      offers[`Cologne`].map((offer) => {
+                        if (offer.bookmark) {
                           return (
                             <FavoriteCard
                               key={`${offer[`id`]}-${offer[`city`]}`}
@@ -81,6 +85,7 @@ class FavoritesScreen extends PureComponent {
                             />
                           );
                         }
+
                         return false;
                       })
                     }
@@ -97,7 +102,7 @@ class FavoritesScreen extends PureComponent {
 }
 
 FavoritesScreen.propTypes = {
-  offers: PropTypes.array.isRequired,
+  offers: PropTypes.objectOf(PropTypes.array).isRequired,
 };
 
 const mapStateToProps = (state) => ({

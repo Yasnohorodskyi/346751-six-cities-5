@@ -19,6 +19,7 @@ const SortingOptionsWithOpenState = withOpenState(SortingOptions);
 const OffersListWithActiveCard = withActiveCard(OffersList);
 
 const MainPage = ({offers, city, onCityChange, sortOption}) => {
+  offers = offers[city];
 
   const sortingOffers = () => {
     let sortedOffers = offers.slice(0);
@@ -82,7 +83,7 @@ const MainPage = ({offers, city, onCityChange, sortOption}) => {
 MainPage.propTypes = {
   city: PropTypes.string.isRequired,
   onCityChange: PropTypes.func.isRequired,
-  offers: PropTypes.array.isRequired,
+  offers: PropTypes.object.isRequired,
   sortOption: PropTypes.string.isRequired,
 };
 
@@ -95,7 +96,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onCityChange(item) {
     dispatch(ActionCreator.cityChange(item));
-    dispatch(ActionCreator.getOffersList(item));
   }
 });
 
