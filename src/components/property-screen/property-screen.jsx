@@ -8,6 +8,10 @@ import ReviewsList from "../reviews-list/reviews-list";
 import OffersMap from "../offers-map/offers-map";
 import OffersList from "../offers-list/offers-list";
 
+import withActiveCard from "../../hocs/with-active-card/with-active-card";
+
+const OffersListWithActiveCard = withActiveCard(OffersList);
+
 const PropertyScreen = (props) => {
   const {offers, reviews} = props;
   const [offer] = offers;
@@ -140,7 +144,7 @@ const PropertyScreen = (props) => {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <OffersList
+            <OffersListWithActiveCard
               offers={offers.slice(-3)}
               renderClassName={() => (`near-places__list`)}
               renderOfferMark={() => (false)}

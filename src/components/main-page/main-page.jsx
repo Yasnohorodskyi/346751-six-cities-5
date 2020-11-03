@@ -13,8 +13,10 @@ import OffersMap from "../offers-map/offers-map";
 import SortingOptions from "../sorting-options/sorting-options";
 
 import withOpenState from "../../hocs/with-open-state/with-open-state";
+import withActiveCard from "../../hocs/with-active-card/with-active-card";
 
 const SortingOptionsWithOpenState = withOpenState(SortingOptions);
+const OffersListWithActiveCard = withActiveCard(OffersList);
 
 const MainPage = ({offers, city, onCityChange, sortOption}) => {
 
@@ -56,7 +58,7 @@ const MainPage = ({offers, city, onCityChange, sortOption}) => {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{(offers.length)} places to stay in {city}</b>
               <SortingOptionsWithOpenState />
-              <OffersList
+              <OffersListWithActiveCard
                 offers={sortingOffers()}
                 renderClassName={() => (`cities__places-list tabs__content`)}
                 renderOfferMark={() => (true)}
