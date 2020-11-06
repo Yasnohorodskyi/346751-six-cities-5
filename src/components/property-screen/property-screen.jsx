@@ -8,9 +8,12 @@ import ReviewsList from "../reviews-list/reviews-list";
 import OffersMap from "../offers-map/offers-map";
 import OffersList from "../offers-list/offers-list";
 
-const PropertyScreen = (props) => {
-  const {offers, reviews} = props;
-  const [offer] = offers;
+import withActiveCard from "../../hocs/with-active-card/with-active-card";
+
+const OffersListWithActiveCard = withActiveCard(OffersList);
+
+const PropertyScreen = ({offers, reviews, city}) => {
+  const offer = offers[city][0];
   const {
     name,
     type,
@@ -131,7 +134,7 @@ const PropertyScreen = (props) => {
           </div>
           <section className="property__map map">
             <OffersMap
-              offers={offers.slice(-3)}
+              offers={offers[city].slice(-3)}
               activeZoomControl={true}
               activeScrollWheelZoom={false}
             />
@@ -140,8 +143,8 @@ const PropertyScreen = (props) => {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <OffersList
-              offers={offers.slice(-3)}
+            <OffersListWithActiveCard
+              offers={offers[city].slice(-3)}
               renderClassName={() => (`near-places__list`)}
               renderOfferMark={() => (false)}
             />
@@ -153,7 +156,7 @@ const PropertyScreen = (props) => {
 };
 
 PropertyScreen.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape({
+  offers: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
@@ -171,8 +174,9 @@ PropertyScreen.propTypes = {
       status: PropTypes.string.isRequired,
     }).isRequired,
     description: PropTypes.arrayOf(PropTypes.string).isRequired,
-  })).isRequired,
+  }))).isRequired,
   reviews: PropTypes.array.isRequired,
+  city: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({

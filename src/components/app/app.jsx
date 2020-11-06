@@ -5,6 +5,9 @@ import AuthScreen from "../auth-screen/auth-screen";
 import FavoritesScreen from "../favorites-screen/favorites-screen";
 import PropertyScreen from "../property-screen/property-screen";
 
+import withActiveCard from "../../hocs/with-active-card/with-active-card";
+
+const FavoritesScreenWithActiveCard = withActiveCard(FavoritesScreen);
 
 const App = () => {
 
@@ -18,7 +21,7 @@ const App = () => {
           <AuthScreen/>
         </Route>
         <Route exact path="/favorites">
-          <FavoritesScreen/>
+          <FavoritesScreenWithActiveCard/>
         </Route>
         <Route exact path="/offer/:id">
           <PropertyScreen/>

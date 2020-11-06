@@ -12,8 +12,14 @@ import OffersList from "../offers-list/offers-list";
 import OffersMap from "../offers-map/offers-map";
 import SortingOptions from "../sorting-options/sorting-options";
 
+import withOpenState from "../../hocs/with-open-state/with-open-state";
+import withActiveCard from "../../hocs/with-active-card/with-active-card";
+
+const SortingOptionsWithOpenState = withOpenState(SortingOptions);
+const OffersListWithActiveCard = withActiveCard(OffersList);
 
 const MainPage = ({offers, city, onCityChange, sortOption}) => {
+  offers = offers[city];
 
   const sortingOffers = () => {
     let sortedOffers = offers.slice(0);
@@ -52,8 +58,8 @@ const MainPage = ({offers, city, onCityChange, sortOption}) => {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{(offers.length)} places to stay in {city}</b>
-              <SortingOptions />
-              <OffersList
+              <SortingOptionsWithOpenState />
+              <OffersListWithActiveCard
                 offers={sortingOffers()}
                 renderClassName={() => (`cities__places-list tabs__content`)}
                 renderOfferMark={() => (true)}
@@ -77,7 +83,7 @@ const MainPage = ({offers, city, onCityChange, sortOption}) => {
 MainPage.propTypes = {
   city: PropTypes.string.isRequired,
   onCityChange: PropTypes.func.isRequired,
-  offers: PropTypes.array.isRequired,
+  offers: PropTypes.object.isRequired,
   sortOption: PropTypes.string.isRequired,
 };
 
@@ -90,7 +96,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onCityChange(item) {
     dispatch(ActionCreator.cityChange(item));
-    dispatch(ActionCreator.getOffersList(item));
   }
 });
 
