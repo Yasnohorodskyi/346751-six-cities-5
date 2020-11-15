@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import cn from "classnames";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
 
@@ -48,19 +49,19 @@ const MainPage = ({offers, city, onCityChange, sortOption}) => {
   return (
     <div className="page page--gray page--main">
       <Header/>
-      <Main renderClassName={() => (offers.length ? `page__main--index` : `page__main--index page__main--index-empty`)}>
+      <Main
+        renderClassName={() => {
+          cn(`page__main--index`, {'page__main--index page__main--index-empty': !offers.length});
+        }}
+      >
         <h1 className="visually-hidden">Cities</h1>
         <CitiesList
           city={city}
           onCityChange={onCityChange}
         />
         <div className="cities">
-          {!offers.length &&
-            <EmptyResult
-              city={city}
-            />
-          }
-          {offers.length &&
+          {offers.length
+            ?
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
@@ -80,6 +81,10 @@ const MainPage = ({offers, city, onCityChange, sortOption}) => {
                 />
               </div>
             </div>
+            :
+            <EmptyResult
+              city={city}
+            />
           }
         </div>
       </Main>

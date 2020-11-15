@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import cn from "classnames";
 import {Cities} from "../../const";
 
 const CitiesList = ({city, onCityChange}) => {
@@ -17,7 +18,7 @@ const CitiesList = ({city, onCityChange}) => {
                   onCityChange(item);
                 }}
               >
-                <a className={`locations__item-link tabs__item ${city === item ? `tabs__item--active` : ``}`}>
+                <a className={cn(`locations__item-link tabs__item`, {'tabs__item--active': city === item})}>
                   <span>{item}</span>
                 </a>
               </li>
