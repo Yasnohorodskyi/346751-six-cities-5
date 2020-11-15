@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import cn from "classnames";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
+import {getCity, getOffersByCity} from "../../store/selectors";
 
 import {SortOptions} from "../../const";
 
@@ -21,7 +22,7 @@ const SortingOptionsWithOpenState = withOpenState(SortingOptions);
 const OffersListWithActiveCard = withActiveCard(OffersList);
 
 const MainPage = ({offers, city, onCityChange, sortOption}) => {
-  offers = offers[city];
+  // offers = offers[city];
 
   const sortingOffers = () => {
     let sortedOffers = offers.slice(0);
@@ -96,14 +97,14 @@ const MainPage = ({offers, city, onCityChange, sortOption}) => {
 MainPage.propTypes = {
   city: PropTypes.string.isRequired,
   onCityChange: PropTypes.func.isRequired,
-  offers: PropTypes.object.isRequired,
+  offers: PropTypes.array.isRequired,
   sortOption: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  city: state.city,
-  offers: state.offers,
-  sortOption: state.sortOption,
+  city: getCity(state),
+  offers: getOffersByCity(state),
+  sortOption: state.PROCESS.sortOption,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -25,7 +25,7 @@ const SortingOptions = (props) => {
       </span>
       <ul className={`places__options places__options--custom ${isOpen ? `places__options--opened` : ``} `}>
         {
-          Object.keys(SortOptions).map((option, i) => (
+          SortOptions.map((option, i) => (
             <li
               key={`${i}-option`}
               className={`places__option ${sortOption === SortOptions[option] ? `places__option--active` : ``}`}
@@ -51,8 +51,8 @@ SortingOptions.propTypes = {
 
 };
 
-const mapStateToProps = (state) => ({
-  sortOption: state.sortOption,
+const mapStateToProps = ({PROCESS}) => ({
+  sortOption: PROCESS.sortOption,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -6,14 +6,13 @@ const OfferCard = (props) => {
   const {offer, onHover, onUnHover} = props;
   const {
     id,
-    name,
+    title,
     type,
     rating,
     price,
-    priceText,
-    bookmark,
-    images,
-    mark
+    is_favorite: isFavorite,
+    preview_image: previewImage,
+    is_premium: isPremium
   } = offer;
 
   return (
@@ -22,23 +21,23 @@ const OfferCard = (props) => {
       onMouseLeave={onUnHover}
       className={` ${props.renderClassName()}__place-card place-card`}
     >
-      {mark && props.renderMark() &&
+      {isPremium && props.renderMark() &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       }
       <div className={`${props.renderClassName()}__image-wrapper place-card__image-wrapper`}>
         <Link to={{pathname: `/offer/${id}`}}>
-          <img className="place-card__image" src={images[0]} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
         </Link>
       </div>
       <div className={`${props.renderClassName()}__card-info place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
-            <span className="place-card__price-text">&#47;&nbsp;{priceText}</span>
+            <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ` + (bookmark ? `place-card__bookmark-button--active ` : ` `) + `button`} type="button">
+          <button className={`place-card__bookmark-button ` + (isFavorite ? `place-card__bookmark-button--active ` : ` `) + `button`} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -54,7 +53,7 @@ const OfferCard = (props) => {
         </div>
         <h2 className="place-card__name">
           <Link to={{pathname: `/offer/${id}`}}>
-            {name}
+            {title}
           </Link>
         </h2>
         <p className="place-card__type">{type}</p>
@@ -66,14 +65,13 @@ const OfferCard = (props) => {
 OfferCard.propTypes = {
   offer: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
-    priceText: PropTypes.string.isRequired,
-    bookmark: PropTypes.bool.isRequired,
-    images: PropTypes.arrayOf(PropTypes.string).isRequired,
-    mark: PropTypes.bool.isRequired,
+    is_favorite: PropTypes.bool.isRequired,
+    preview_image: PropTypes.string.isRequired,
+    is_premium: PropTypes.bool.isRequired,
   }).isRequired,
   onHover: PropTypes.func.isRequired,
   onUnHover: PropTypes.func.isRequired,

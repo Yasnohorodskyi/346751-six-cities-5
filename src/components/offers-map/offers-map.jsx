@@ -17,8 +17,8 @@ class OffersMap extends PureComponent {
     const activeZoomControl = this.props.activeZoomControl;
     const activeScrollWheelZoom = this.props.activeScrollWheelZoom;
 
-    const centerCity = offers[0][`city`][`coordinates`];
-    const zoom = 12;
+    const centerCity = [offers[0].city.location.latitude, offers[0].city.location.longitude];
+    const zoom = offers[0].city.location.zoom;
 
     this.map = leaflet.map(this.mapContainer.current, {
       center: centerCity,
@@ -37,7 +37,7 @@ class OffersMap extends PureComponent {
 
     this.markersGroup = leaflet.layerGroup().addTo(this.map);
     offers.map((offer) => {
-      const offerCords = [offer.coordinates[0], offer.coordinates[1]];
+      const offerCords = [offer.location.latitude, offer.location.longitude];
 
       if (offer.id === activeCard) {
         icon = leaflet.icon({
@@ -73,13 +73,13 @@ class OffersMap extends PureComponent {
   componentDidUpdate() {
     this.markersGroup.clearLayers();
     const {offers, activeCard} = this.props;
-    const centerCity = offers[0][`city`][`coordinates`];
+    const centerCity = [offers[0].city.location.latitude, offers[0].city.location.longitude];
     this.map.setView(centerCity);
     this.map.removeLayer(leaflet.marker);
     let icon;
 
     offers.map((offer) => {
-      const offerCords = [offer.coordinates[0], offer.coordinates[1]];
+      const offerCords = [offer.location.latitude, offer.location.longitude];
 
       if (offer.id === activeCard) {
         icon = leaflet.icon({
@@ -107,8 +107,8 @@ OffersMap.propTypes = {
   activeScrollWheelZoom: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  activeCard: state.activeCard,
+const mapStateToProps = ({PROCESS}) => ({
+  activeCard: PROCESS.activeCard,
 });
 
 export {OffersMap};
