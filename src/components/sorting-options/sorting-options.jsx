@@ -25,7 +25,7 @@ const SortingOptions = (props) => {
       </span>
       <ul className={`places__options places__options--custom ${isOpen ? `places__options--opened` : ``} `}>
         {
-          SortOptions.map((option, i) => (
+          Object.keys(SortOptions).map((option, i) => (
             <li
               key={`${i}-option`}
               className={`places__option ${sortOption === SortOptions[option] ? `places__option--active` : ``}`}

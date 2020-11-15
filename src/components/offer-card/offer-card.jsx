@@ -10,9 +10,9 @@ const OfferCard = (props) => {
     type,
     rating,
     price,
-    is_favorite: isFavorite,
-    preview_image: previewImage,
-    is_premium: isPremium
+    [`is_favorite`]: isFavorite,
+    [`preview_image`]: previewImage,
+    [`is_premium`]: isPremium
   } = offer;
 
   return (
@@ -69,9 +69,9 @@ OfferCard.propTypes = {
     type: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
-    is_favorite: PropTypes.bool.isRequired,
-    preview_image: PropTypes.string.isRequired,
-    is_premium: PropTypes.bool.isRequired,
+    [`is_favorite`]: PropTypes.bool.isRequired,
+    [`preview_image`]: PropTypes.string.isRequired,
+    [`is_premium`]: PropTypes.bool.isRequired,
   }).isRequired,
   onHover: PropTypes.func.isRequired,
   onUnHover: PropTypes.func.isRequired,

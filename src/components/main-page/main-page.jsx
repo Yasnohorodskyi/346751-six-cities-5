@@ -22,7 +22,6 @@ const SortingOptionsWithOpenState = withOpenState(SortingOptions);
 const OffersListWithActiveCard = withActiveCard(OffersList);
 
 const MainPage = ({offers, city, onCityChange, sortOption}) => {
-  // offers = offers[city];
 
   const sortingOffers = () => {
     let sortedOffers = offers.slice(0);

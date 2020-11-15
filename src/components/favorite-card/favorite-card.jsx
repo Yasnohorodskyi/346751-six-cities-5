@@ -11,8 +11,8 @@ const FavoriteCard = (props) => {
     type,
     rating,
     price,
-    is_favorite,
-    preview_image,
+    [`is_favorite`]: isFavorite,
+    [`preview_image`]: previewImage,
   } = offer;
 
   return (
@@ -22,7 +22,7 @@ const FavoriteCard = (props) => {
     >
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to={{pathname: `/offer/${id}`}}>
-          <img className="place-card__image" src={preview_image} width="150" height="110" alt="Place image"/>
+          <img className="place-card__image" src={previewImage} width="150" height="110" alt="Place image"/>
         </Link>
       </div>
       <div className="favorites__card-info place-card__info">
@@ -31,7 +31,7 @@ const FavoriteCard = (props) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={cn(`place-card__bookmark-button button`, {'place-card__bookmark-button--active': is_favorite})} type="button">
+          <button className={cn(`place-card__bookmark-button button`, {'place-card__bookmark-button--active': isFavorite})} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -64,8 +64,8 @@ FavoriteCard.propTypes = {
     type: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
-    is_favorite: PropTypes.bool.isRequired,
-    preview_image: PropTypes.string.isRequired,
+    [`isFavorite`]: PropTypes.bool.isRequired,
+    [`preview_image`]: PropTypes.string.isRequired,
   }).isRequired,
 };
 

@@ -7,24 +7,24 @@ import Main from "../main/main";
 import ReviewsList from "../reviews-list/reviews-list";
 import OffersMap from "../offers-map/offers-map";
 import OffersList from "../offers-list/offers-list";
-import {getCity, getOffersByCity} from "../../store/selectors";
+import {getOffersByCity} from "../../store/selectors";
 
 import withActiveCard from "../../hocs/with-active-card/with-active-card";
 
 const OffersListWithActiveCard = withActiveCard(OffersList);
 
-const PropertyScreen = ({offers, reviews, city}) => {
+const PropertyScreen = ({offers, reviews}) => {
   const offer = offers[0];
   const {
     title,
     type,
     rating,
     price,
-    is_favorite: isFavorite,
+    [`is_favorite`]: isFavorite,
     images,
-    is_premium: isPremium,
+    [`is_premium`]: isPremium,
     bedrooms,
-    max_adults: maxAdults,
+    [`max_adults`]: maxAdults,
     goods,
     host,
     description
@@ -108,8 +108,8 @@ const PropertyScreen = ({offers, reviews, city}) => {
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className={`property__avatar-wrapper ` + (host.is_pro ? `property__avatar-wrapper--pro ` : ` `) + `user__avatar-wrapper`}>
-                    <img className="property__avatar user__avatar" src={host.avatar_url} width="74" height="74" alt="Host avatar"/>
+                  <div className={`property__avatar-wrapper ` + (host.isPro ? `property__avatar-wrapper--pro ` : ` `) + `user__avatar-wrapper`}>
+                    <img className="property__avatar user__avatar" src={host.avatarUrl} width="74" height="74" alt="Host avatar"/>
                   </div>
                   <span className="property__user-name">
                     {host.name}
@@ -155,25 +155,23 @@ PropertyScreen.propTypes = {
     type: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
-    is_favorite: PropTypes.bool.isRequired,
+    [`is_favorite`]: PropTypes.bool.isRequired,
     images: PropTypes.arrayOf(PropTypes.string).isRequired,
-    is_premium: PropTypes.bool.isRequired,
+    [`is_premium`]: PropTypes.bool.isRequired,
     bedrooms: PropTypes.number.isRequired,
-    max_adults: PropTypes.number.isRequired,
+    [`max_adults`]: PropTypes.number.isRequired,
     goods: PropTypes.arrayOf(PropTypes.string).isRequired,
     host: PropTypes.shape({
-      avatar_url: PropTypes.string.isRequired,
+      [`avatar_url`]: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      is_pro: PropTypes.bool.isRequired,
+      [`is_pro`]: PropTypes.bool.isRequired,
     }).isRequired,
     description: PropTypes.string.isRequired,
   })).isRequired,
   reviews: PropTypes.array.isRequired,
-  city: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  city: getCity(state),
   offers: getOffersByCity(state),
   reviews: state.DATA.reviews,
 });
