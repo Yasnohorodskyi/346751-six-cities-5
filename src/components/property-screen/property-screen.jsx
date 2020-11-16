@@ -7,25 +7,25 @@ import Main from "../main/main";
 import ReviewsList from "../reviews-list/reviews-list";
 import OffersMap from "../offers-map/offers-map";
 import OffersList from "../offers-list/offers-list";
+import {getOffersByCity} from "../../store/selectors";
 
 import withActiveCard from "../../hocs/with-active-card/with-active-card";
 
 const OffersListWithActiveCard = withActiveCard(OffersList);
 
-const PropertyScreen = ({offers, reviews, city}) => {
-  const offer = offers[city][0];
+const PropertyScreen = ({offers, reviews}) => {
+  const offer = offers[0];
   const {
-    name,
+    title,
     type,
     rating,
     price,
-    priceText,
-    bookmark,
+    [`is_favorite`]: isFavorite,
     images,
-    mark,
+    [`is_premium`]: isPremium,
     bedrooms,
-    adults,
-    inside,
+    [`max_adults`]: maxAdults,
+    goods,
     host,
     description
   } = offer;
@@ -38,7 +38,7 @@ const PropertyScreen = ({offers, reviews, city}) => {
           <div className="property__gallery-container container">
             <div className="property__gallery">
               {
-                images.map((image, i) => (
+                images.slice(-6).map((image, i) => (
                   <div className="property__image-wrapper"
                     key={`${i}-image`}
                   >
@@ -50,16 +50,16 @@ const PropertyScreen = ({offers, reviews, city}) => {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {mark &&
+              {isPremium &&
                 <div className="property__mark">
                   <span>Premium</span>
                 </div>
               }
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  {name}
+                  {title}
                 </h1>
-                <button className={`property__bookmark-button ` + (bookmark ? `property__bookmark-button--active ` : ` `) + `button`} type="button">
+                <button className={`property__bookmark-button ` + (isFavorite ? `property__bookmark-button--active ` : ` `) + `button`} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -84,18 +84,18 @@ const PropertyScreen = ({offers, reviews, city}) => {
                   }
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max {adults} adults
+                  Max {maxAdults} adults
                 </li>
               </ul>
               <div className="property__price">
                 <b className="property__price-value">&euro;{price}</b>
-                <span className="property__price-text">&nbsp;{priceText}</span>
+                <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
                   {
-                    inside.map((insideItem, i) => (
+                    goods.map((insideItem, i) => (
                       <li className="property__inside-item"
                         key={`${i}-insideItem`}
                       >
@@ -108,23 +108,17 @@ const PropertyScreen = ({offers, reviews, city}) => {
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className={`property__avatar-wrapper ` + (host[`status`] ? `property__avatar-wrapper--pro ` : ` `) + `user__avatar-wrapper`}>
-                    <img className="property__avatar user__avatar" src={host[`avatar`]} width="74" height="74" alt="Host avatar"/>
+                  <div className={`property__avatar-wrapper ` + (host.isPro ? `property__avatar-wrapper--pro ` : ` `) + `user__avatar-wrapper`}>
+                    <img className="property__avatar user__avatar" src={host.avatarUrl} width="74" height="74" alt="Host avatar"/>
                   </div>
                   <span className="property__user-name">
-                    {host[`name`]}
+                    {host.name}
                   </span>
                 </div>
                 <div className="property__description">
-                  {
-                    description.map((text, i) => (
-                      <p className="property__text"
-                        key={`${i}-text`}
-                      >
-                        {text}
-                      </p>
-                    ))
-                  }
+                  <p className="property__text">
+                    {description}
+                  </p>
                 </div>
               </div>
               <ReviewsList
@@ -134,7 +128,7 @@ const PropertyScreen = ({offers, reviews, city}) => {
           </div>
           <section className="property__map map">
             <OffersMap
-              offers={offers[city].slice(-3)}
+              offers={offers.slice(-3)}
               activeZoomControl={true}
               activeScrollWheelZoom={false}
             />
@@ -144,7 +138,7 @@ const PropertyScreen = ({offers, reviews, city}) => {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <OffersListWithActiveCard
-              offers={offers[city].slice(-3)}
+              offers={offers.slice(-3)}
               renderClassName={() => (`near-places__list`)}
               renderOfferMark={() => (false)}
             />
@@ -156,33 +150,30 @@ const PropertyScreen = ({offers, reviews, city}) => {
 };
 
 PropertyScreen.propTypes = {
-  offers: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
+  offers: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
-    priceText: PropTypes.string.isRequired,
-    bookmark: PropTypes.bool.isRequired,
+    [`is_favorite`]: PropTypes.bool.isRequired,
     images: PropTypes.arrayOf(PropTypes.string).isRequired,
-    mark: PropTypes.bool.isRequired,
+    [`is_premium`]: PropTypes.bool.isRequired,
     bedrooms: PropTypes.number.isRequired,
-    adults: PropTypes.number.isRequired,
-    inside: PropTypes.arrayOf(PropTypes.string).isRequired,
+    [`max_adults`]: PropTypes.number.isRequired,
+    goods: PropTypes.arrayOf(PropTypes.string).isRequired,
     host: PropTypes.shape({
-      avatar: PropTypes.string.isRequired,
+      [`avatar_url`]: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      status: PropTypes.string.isRequired,
+      [`is_pro`]: PropTypes.bool.isRequired,
     }).isRequired,
-    description: PropTypes.arrayOf(PropTypes.string).isRequired,
-  }))).isRequired,
+    description: PropTypes.string.isRequired,
+  })).isRequired,
   reviews: PropTypes.array.isRequired,
-  city: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  city: state.city,
-  offers: state.offers,
-  reviews: state.reviews,
+  offers: getOffersByCity(state),
+  reviews: state.DATA.reviews,
 });
 
 export {PropertyScreen};

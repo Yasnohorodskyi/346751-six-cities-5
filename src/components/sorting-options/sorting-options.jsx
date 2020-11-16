@@ -51,8 +51,8 @@ SortingOptions.propTypes = {
 
 };
 
-const mapStateToProps = (state) => ({
-  sortOption: state.sortOption,
+const mapStateToProps = ({PROCESS}) => ({
+  sortOption: PROCESS.sortOption,
 });
 
 const mapDispatchToProps = (dispatch) => ({

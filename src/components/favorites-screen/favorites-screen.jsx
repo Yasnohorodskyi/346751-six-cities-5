@@ -6,8 +6,13 @@ import Header from "../header/header";
 import Main from "../main/main";
 import FavoriteCard from "../favorite-card/favorite-card";
 import Footer from "../footer/footer";
+import {Cities} from "../../const";
+import {getOffers} from "../../store/selectors";
 
 const FavoritesScreen = ({offers, onCardMouseOver}) => {
+  const cityFavoriteOffers = (city) => {
+    return offers.filter((it) => it.city.name === city && it.is_favorite);
+  };
 
   return (
     <div className="page">
@@ -18,20 +23,44 @@ const FavoritesScreen = ({offers, onCardMouseOver}) => {
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
               {
-
+                Cities.map((city, i) => (
+                  <li key={`${i}-${city}`} className="favorites__locations-items">
+                    <div className="favorites__locations locations locations--current">
+                      <div className="locations__item">
+                        <a className="locations__item-link" href="#">
+                          <span>{city}</span>
+                        </a>
+                      </div>
+                    </div>
+                    <div className="favorites__places">
+                      {
+                        cityFavoriteOffers(city).map((offer) => {
+                          return (
+                            <FavoriteCard
+                              key={`${offer.id}-${city}`}
+                              offer={offer}
+                              onHover={() => (onCardMouseOver(offer.id))}
+                            />
+                          );
+                        })
+                      }
+                    </div>
+                  </li>
+                ))
               }
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="#">
-                      <span>Amsterdam</span>
-                    </a>
+              {!!cityFavoriteOffers(`Amsterdam`).length &&
+
+                <li className="favorites__locations-items">
+                  <div className="favorites__locations locations locations--current">
+                    <div className="locations__item">
+                      <a className="locations__item-link" href="#">
+                        <span>Amsterdam</span>
+                      </a>
+                    </div>
                   </div>
-                </div>
-                <div className="favorites__places">
-                  {
-                    offers[`Amsterdam`].map((offer) => {
-                      if (offer.bookmark) {
+                  <div className="favorites__places">
+                    {
+                      cityFavoriteOffers(`Amsterdam`).map((offer) => {
                         return (
                           <FavoriteCard
                             key={`${offer[`id`]}-${offer[`city`]}`}
@@ -39,40 +68,11 @@ const FavoritesScreen = ({offers, onCardMouseOver}) => {
                             onHover={() => (onCardMouseOver(offer.id))}
                           />
                         );
-                      }
-
-                      return false;
-                    })
-                  }
-                </div>
-              </li>
-
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="#">
-                      <span>Cologne</span>
-                    </a>
+                      })
+                    }
                   </div>
-                </div>
-                <div className="favorites__places">
-                  {
-                    offers[`Cologne`].map((offer) => {
-                      if (offer.bookmark) {
-                        return (
-                          <FavoriteCard
-                            key={`${offer[`id`]}-${offer[`city`]}`}
-                            offer={offer}
-                            onHover={() => (onCardMouseOver(offer.id))}
-                          />
-                        );
-                      }
-
-                      return false;
-                    })
-                  }
-                </div>
-              </li>
+                </li>
+              }
             </ul>
           </section>
         </div>
@@ -83,12 +83,12 @@ const FavoritesScreen = ({offers, onCardMouseOver}) => {
 };
 
 FavoritesScreen.propTypes = {
-  offers: PropTypes.objectOf(PropTypes.array).isRequired,
+  offers: PropTypes.array.isRequired,
   onCardMouseOver: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
+  offers: getOffers(state),
 });
 
 export {FavoritesScreen};
