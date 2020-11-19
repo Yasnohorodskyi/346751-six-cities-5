@@ -4,6 +4,7 @@ import MainPage from "../main-page/main-page";
 import AuthScreen from "../auth-screen/auth-screen";
 import FavoritesScreen from "../favorites-screen/favorites-screen";
 import PropertyScreen from "../property-screen/property-screen";
+import PrivateRoute from "../private-route/private-route";
 
 import withActiveCard from "../../hocs/with-active-card/with-active-card";
 
@@ -20,9 +21,13 @@ const App = () => {
         <Route exact path="/login">
           <AuthScreen/>
         </Route>
-        <Route exact path="/favorites">
-          <FavoritesScreenWithActiveCard/>
-        </Route>
+        <PrivateRoute
+          exact
+          path={`/favorites`}
+          render={() => {
+            return <FavoritesScreenWithActiveCard/>;
+          }}
+        />
         <Route exact path="/offer/:id">
           <PropertyScreen/>
         </Route>
