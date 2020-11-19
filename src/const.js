@@ -13,3 +13,8 @@ export const SortOptions = {
   highToLow: `high to low`,
   rating: `Top rated first`,
 };
+
+export const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
+};
