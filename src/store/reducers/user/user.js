@@ -10,7 +10,8 @@ export const user = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.REQUIRED_AUTHORIZATION:
       return Object.assign({}, state, {
-        authorizationStatus: action.payload,
+        authorizationStatus: action.payload.status,
+        email: action.payload.email
       });
   }
 
