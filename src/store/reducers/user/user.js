@@ -3,6 +3,7 @@ import {ActionType} from "../../action";
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
+  email: ``,
 };
 
 export const user = (state = initialState, action) => {
