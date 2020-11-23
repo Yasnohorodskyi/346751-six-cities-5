@@ -1,10 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 import ReviewItem from "../review-item/review-item";
 import CommentForm from "../comment-form/comment-form";
 
-const ReviewsList = (props) => {
-  const {reviews} = props;
+import {AuthorizationStatus} from "../../const";
+
+const ReviewsList = ({reviews, authorizationStatus}) => {
 
   return (
     <section className="property__reviews reviews">
@@ -19,13 +21,21 @@ const ReviewsList = (props) => {
           ))
         }
       </ul>
-      <CommentForm/>
+      { authorizationStatus === AuthorizationStatus.AUTH &&
+        <CommentForm/>
+      }
     </section>
   );
 };
 
 ReviewsList.propTypes = {
   reviews: PropTypes.array.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
-export default ReviewsList;
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.USER.authorizationStatus,
+});
+
+export {ReviewsList};
+export default connect(mapStateToProps)(ReviewsList);

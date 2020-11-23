@@ -29,9 +29,17 @@ const App = () => {
             return <FavoritesScreenWithActiveCard/>;
           }}
         />
-        <Route exact path="/offer/:id">
-          <PropertyScreen/>
-        </Route>
+        <Route
+          exact
+          path={`/offer/:id`}
+          render={({match}) => {
+            return (
+              <PropertyScreen
+                currentOfferId={+match.params.id}
+              />
+            );
+          }}
+        />
       </Switch>
     </Router>
   );

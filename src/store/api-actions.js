@@ -19,3 +19,11 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH, email)))
     .then(() => dispatch(ActionCreator.redirectToRoute(`/`)))
 );
+
+export const fetchOfferById = (id) => (dispatch, _getState, api) => (
+  api.get(`/hotels/${id}`)
+    .then(({data}) => dispatch(ActionCreator.loadCurrentOffer(data)))
+    .catch(() => {
+
+    })
+);
