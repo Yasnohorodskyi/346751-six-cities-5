@@ -8,7 +8,7 @@ import ReviewsList from "../reviews-list/reviews-list";
 import OffersMap from "../offers-map/offers-map";
 import OffersList from "../offers-list/offers-list";
 import {getOffersByCity} from "../../store/selectors";
-import {fetchOfferById} from "../../store/api-actions";
+import {fetchOfferById, fetchCurrentOfferReviews} from "../../store/api-actions";
 
 import withActiveCard from "../../hocs/with-active-card/with-active-card";
 
@@ -22,15 +22,17 @@ class PropertyScreen extends PureComponent {
   }
 
   componentDidMount() {
-    const {currentOfferId, loadCurrentOffer} = this.props;
+    const {currentOfferId, loadCurrentOffer, loadCurrentOfferReviews} = this.props;
     loadCurrentOffer(currentOfferId);
+    loadCurrentOfferReviews(currentOfferId);
   }
 
   componentDidUpdate(prevProps) {
-    const {currentOfferId, loadCurrentOffer} = this.props;
+    const {currentOfferId, loadCurrentOffer, loadCurrentOfferReviews} = this.props;
 
     if (prevProps.currentOfferId !== currentOfferId) {
       loadCurrentOffer(currentOfferId);
+      loadCurrentOfferReviews(currentOfferId);
     }
   }
 
@@ -204,18 +206,22 @@ PropertyScreen.propTypes = {
   ]),
   reviews: PropTypes.array.isRequired,
   loadCurrentOffer: PropTypes.func.isRequired,
+  loadCurrentOfferReviews: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   offers: getOffersByCity(state),
-  reviews: state.DATA.reviews,
   currentOffer: state.DATA.currentOffer,
+  reviews: state.DATA.currentOfferReviews,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   loadCurrentOffer(id) {
     dispatch(fetchOfferById(id));
   },
+  loadCurrentOfferReviews(id) {
+    dispatch(fetchCurrentOfferReviews(id));
+  }
 });
 
 export {PropertyScreen};

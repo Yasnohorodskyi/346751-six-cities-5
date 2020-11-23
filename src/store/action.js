@@ -7,6 +7,7 @@ export const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
   REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
   LOAD_CURRENT_OFFER: `LOAD_CURRENT_OFFER`,
+  LOAD_CURRENT_OFFER_REVIEWS: `LOAD_CURRENT_OFFER_REVIEWS`,
 };
 
 export const ActionCreator = {
@@ -36,6 +37,10 @@ export const ActionCreator = {
   }),
   loadCurrentOffer: (data) => ({
     type: ActionType.LOAD_CURRENT_OFFER,
+    payload: data,
+  }),
+  loadCurrentOfferReviews: (data) => ({
+    type: ActionType.LOAD_CURRENT_OFFER_REVIEWS,
     payload: data,
   }),
 };

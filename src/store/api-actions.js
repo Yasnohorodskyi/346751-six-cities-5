@@ -23,7 +23,10 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
 export const fetchOfferById = (id) => (dispatch, _getState, api) => (
   api.get(`/hotels/${id}`)
     .then(({data}) => dispatch(ActionCreator.loadCurrentOffer(data)))
-    .catch(() => {
-      dispatch(ActionCreator.redirectToRoute(`/`))
-    })
+    .catch(() => dispatch(ActionCreator.redirectToRoute(`/`)))
+);
+
+export const fetchCurrentOfferReviews = (id) => (dispatch, _getState, api) => (
+  api.get(`/comments/${id}`)
+    .then(({data}) => dispatch(ActionCreator.loadCurrentOfferReviews(data)))
 );
