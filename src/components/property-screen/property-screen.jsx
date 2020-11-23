@@ -7,8 +7,11 @@ import Main from "../main/main";
 import ReviewsList from "../reviews-list/reviews-list";
 import OffersMap from "../offers-map/offers-map";
 import OffersList from "../offers-list/offers-list";
+import CommentForm from "../comment-form/comment-form";
 import {getOffersByCity} from "../../store/selectors";
 import {fetchOfferById, fetchCurrentOfferReviews, fetchCurrentOfferNearby} from "../../store/api-actions";
+
+import {AuthorizationStatus} from "../../const";
 
 import withActiveCard from "../../hocs/with-active-card/with-active-card";
 
@@ -39,7 +42,7 @@ class PropertyScreen extends PureComponent {
   }
 
   render() {
-    const {currentOffer, reviews, offersNearby} = this.props;
+    const {currentOffer, reviews, offersNearby, authorizationStatus, currentOfferId} = this.props;
     if (Object.keys(currentOffer).length && offersNearby.length) {
       const {
         title,
@@ -147,9 +150,14 @@ class PropertyScreen extends PureComponent {
                       </p>
                     </div>
                   </div>
-                  <ReviewsList
-                    reviews={reviews}
-                  />
+                  <section className="property__reviews reviews">
+                    <ReviewsList
+                      reviews={reviews}
+                    />
+                    { authorizationStatus === AuthorizationStatus.AUTH &&
+                      <CommentForm currentOfferId={currentOfferId}/>
+                    }
+                  </section>
                 </div>
               </div>
               <section className="property__map map">
@@ -211,6 +219,7 @@ PropertyScreen.propTypes = {
   loadCurrentOffer: PropTypes.func.isRequired,
   loadCurrentOfferReviews: PropTypes.func.isRequired,
   loadCurrentOfferNearby: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -218,6 +227,7 @@ const mapStateToProps = (state) => ({
   currentOffer: state.DATA.currentOffer,
   reviews: state.DATA.currentOfferReviews,
   offersNearby: state.DATA.currentOfferNearby,
+  authorizationStatus: state.USER.authorizationStatus,
 });
 
 const mapDispatchToProps = (dispatch) => ({
