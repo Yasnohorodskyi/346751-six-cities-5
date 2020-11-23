@@ -24,6 +24,6 @@ export const fetchOfferById = (id) => (dispatch, _getState, api) => (
   api.get(`/hotels/${id}`)
     .then(({data}) => dispatch(ActionCreator.loadCurrentOffer(data)))
     .catch(() => {
-
+      dispatch(ActionCreator.redirectToRoute(`/`))
     })
 );
