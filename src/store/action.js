@@ -8,6 +8,7 @@ export const ActionType = {
   REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
   LOAD_CURRENT_OFFER: `LOAD_CURRENT_OFFER`,
   LOAD_CURRENT_OFFER_REVIEWS: `LOAD_CURRENT_OFFER_REVIEWS`,
+  LOAD_CURRENT_OFFER_NEARBY: `LOAD_CURRENT_OFFER_NEARBY`,
 };
 
 export const ActionCreator = {
@@ -41,6 +42,10 @@ export const ActionCreator = {
   }),
   loadCurrentOfferReviews: (data) => ({
     type: ActionType.LOAD_CURRENT_OFFER_REVIEWS,
+    payload: data,
+  }),
+  loadCurrentOfferNearby: (data) => ({
+    type: ActionType.LOAD_CURRENT_OFFER_NEARBY,
     payload: data,
   }),
 };

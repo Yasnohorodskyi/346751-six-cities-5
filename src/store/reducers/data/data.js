@@ -5,6 +5,7 @@ const initialState = {
   offers: [],
   currentOffer: [],
   currentOfferReviews: [],
+  currentOfferNearby: [],
 };
 
 export const data = (state = initialState, action) => {
@@ -24,6 +25,10 @@ export const data = (state = initialState, action) => {
     case ActionType.LOAD_CURRENT_OFFER_REVIEWS:
       return extend(state, {
         currentOfferReviews: action.payload,
+      });
+    case ActionType.LOAD_CURRENT_OFFER_NEARBY:
+      return extend(state, {
+        currentOfferNearby: action.payload,
       });
   }
 

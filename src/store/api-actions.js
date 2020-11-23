@@ -30,3 +30,8 @@ export const fetchCurrentOfferReviews = (id) => (dispatch, _getState, api) => (
   api.get(`/comments/${id}`)
     .then(({data}) => dispatch(ActionCreator.loadCurrentOfferReviews(data)))
 );
+
+export const fetchCurrentOfferNearby = (id) => (dispatch, _getState, api) => (
+  api.get(`/hotels/${id}/nearby`)
+    .then(({data}) => dispatch(ActionCreator.loadCurrentOfferNearby(data)))
+);

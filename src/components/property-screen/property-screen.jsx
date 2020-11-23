@@ -8,7 +8,7 @@ import ReviewsList from "../reviews-list/reviews-list";
 import OffersMap from "../offers-map/offers-map";
 import OffersList from "../offers-list/offers-list";
 import {getOffersByCity} from "../../store/selectors";
-import {fetchOfferById, fetchCurrentOfferReviews} from "../../store/api-actions";
+import {fetchOfferById, fetchCurrentOfferReviews, fetchCurrentOfferNearby} from "../../store/api-actions";
 
 import withActiveCard from "../../hocs/with-active-card/with-active-card";
 
@@ -22,23 +22,25 @@ class PropertyScreen extends PureComponent {
   }
 
   componentDidMount() {
-    const {currentOfferId, loadCurrentOffer, loadCurrentOfferReviews} = this.props;
+    const {currentOfferId, loadCurrentOffer, loadCurrentOfferReviews, loadCurrentOfferNearby} = this.props;
     loadCurrentOffer(currentOfferId);
     loadCurrentOfferReviews(currentOfferId);
+    loadCurrentOfferNearby(currentOfferId);
   }
 
   componentDidUpdate(prevProps) {
-    const {currentOfferId, loadCurrentOffer, loadCurrentOfferReviews} = this.props;
+    const {currentOfferId, loadCurrentOffer, loadCurrentOfferReviews, loadCurrentOfferNearby} = this.props;
 
     if (prevProps.currentOfferId !== currentOfferId) {
       loadCurrentOffer(currentOfferId);
       loadCurrentOfferReviews(currentOfferId);
+      loadCurrentOfferNearby(currentOfferId);
     }
   }
 
   render() {
-    const {currentOffer, offers, reviews} = this.props;
-    if (Object.keys(currentOffer).length) {
+    const {currentOffer, reviews, offersNearby} = this.props;
+    if (Object.keys(currentOffer).length && offersNearby.length) {
       const {
         title,
         type,
@@ -152,7 +154,7 @@ class PropertyScreen extends PureComponent {
               </div>
               <section className="property__map map">
                 <OffersMap
-                  offers={offers.slice(-3)}
+                  offers={offersNearby}
                   activeZoomControl={true}
                   activeScrollWheelZoom={false}
                 />
@@ -162,7 +164,7 @@ class PropertyScreen extends PureComponent {
               <section className="near-places places">
                 <h2 className="near-places__title">Other places in the neighbourhood</h2>
                 <OffersListWithActiveCard
-                  offers={offers.slice(-3)}
+                  offers={offersNearby}
                   renderClassName={() => (`near-places__list`)}
                   renderOfferMark={() => (false)}
                 />
@@ -182,6 +184,7 @@ class PropertyScreen extends PureComponent {
 
 PropertyScreen.propTypes = {
   currentOfferId: PropTypes.number.isRequired,
+  offersNearby: PropTypes.array.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
@@ -207,12 +210,14 @@ PropertyScreen.propTypes = {
   reviews: PropTypes.array.isRequired,
   loadCurrentOffer: PropTypes.func.isRequired,
   loadCurrentOfferReviews: PropTypes.func.isRequired,
+  loadCurrentOfferNearby: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   offers: getOffersByCity(state),
   currentOffer: state.DATA.currentOffer,
   reviews: state.DATA.currentOfferReviews,
+  offersNearby: state.DATA.currentOfferNearby,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -221,7 +226,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
   loadCurrentOfferReviews(id) {
     dispatch(fetchCurrentOfferReviews(id));
-  }
+  },
+  loadCurrentOfferNearby(id) {
+    dispatch(fetchCurrentOfferNearby(id));
+  },
 });
 
 export {PropertyScreen};
