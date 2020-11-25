@@ -8,7 +8,7 @@ import ReviewsList from "../reviews-list/reviews-list";
 import OffersMap from "../offers-map/offers-map";
 import OffersList from "../offers-list/offers-list";
 import CommentForm from "../comment-form/comment-form";
-import {getOffersByCity} from "../../store/selectors";
+import {getOffersByCity, sortingReviewsByData} from "../../store/selectors";
 import {fetchOfferById, fetchCurrentOfferReviews, fetchCurrentOfferNearby} from "../../store/api-actions";
 
 import {AuthorizationStatus} from "../../const";
@@ -225,7 +225,7 @@ PropertyScreen.propTypes = {
 const mapStateToProps = (state) => ({
   offers: getOffersByCity(state),
   currentOffer: state.DATA.currentOffer,
-  reviews: state.DATA.currentOfferReviews,
+  reviews: sortingReviewsByData(state),
   offersNearby: state.DATA.currentOfferNearby,
   authorizationStatus: state.USER.authorizationStatus,
 });

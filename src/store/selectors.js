@@ -15,3 +15,14 @@ export const getOffersByCity = createSelector(
       return offers.filter((it) => it.city.name === city);
     }
 );
+
+export const getReviews = (state) => {
+  return state.DATA.currentOfferReviews;
+};
+
+export const sortingReviewsByData = createSelector(
+    getReviews,
+    (reviews) => {
+      return reviews.sort((a, b) => (a.date > b.date ? -1 : 1));
+    }
+);
