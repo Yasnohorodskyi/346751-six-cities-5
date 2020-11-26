@@ -57,7 +57,7 @@ class AuthScreen extends PureComponent {
                     type="email"
                     name="email"
                     placeholder="Email"
-                    required=""
+                    required
                     ref={this.loginRef}
                   />
                 </div>
@@ -68,7 +68,7 @@ class AuthScreen extends PureComponent {
                     type="password"
                     name="password"
                     placeholder="Password"
-                    required=""
+                    required
                     ref={this.passwordRef}
                   />
                 </div>
