@@ -154,18 +154,17 @@ class PropertyScreen extends PureComponent {
                       </p>
                     </div>
                   </div>
-                  <section className="property__reviews reviews">
-                    <ReviewsList
-                      reviews={reviews}
-                    />
-                    { authorizationStatus === AuthorizationStatus.AUTH &&
-                      <CommentForm currentOfferId={currentOfferId}/>
-                    }
-                  </section>
+                  <ReviewsList
+                    reviews={reviews}
+                  />
+                  { authorizationStatus === AuthorizationStatus.AUTH &&
+                    <CommentForm currentOfferId={currentOfferId}/>
+                  }
                 </div>
               </div>
               <section className="property__map map">
                 <OffersMap
+                  currentOffer={currentOffer}
                   offers={offersNearby}
                   activeZoomControl={true}
                   activeScrollWheelZoom={false}

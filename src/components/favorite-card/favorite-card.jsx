@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Link, Redirect} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import cn from "classnames";
 import {changeFavoriteStatus} from "../../store/api-actions";

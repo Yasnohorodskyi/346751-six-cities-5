@@ -13,7 +13,7 @@ class OffersMap extends PureComponent {
   }
 
   componentDidMount() {
-    const {offers, activeCard} = this.props;
+    const {offers, activeCard, currentOffer} = this.props;
     const activeZoomControl = this.props.activeZoomControl;
     const activeScrollWheelZoom = this.props.activeScrollWheelZoom;
 
@@ -36,6 +36,20 @@ class OffersMap extends PureComponent {
     .addTo(this.map);
 
     this.markersGroup = leaflet.layerGroup().addTo(this.map);
+
+    if (currentOffer) {
+      const offerCords = [currentOffer.location.latitude, currentOffer.location.longitude];
+
+      icon = leaflet.icon({
+        iconUrl: `img/pin-active.svg`,
+        iconSize: [27, 39]
+      });
+
+      leaflet
+        .marker(offerCords, {icon})
+        .addTo(this.markersGroup);
+    }
+
     offers.map((offer) => {
       const offerCords = [offer.location.latitude, offer.location.longitude];
 
@@ -72,11 +86,24 @@ class OffersMap extends PureComponent {
 
   componentDidUpdate() {
     this.markersGroup.clearLayers();
-    const {offers, activeCard} = this.props;
+    const {currentOffer, offers, activeCard} = this.props;
     const centerCity = [offers[0].city.location.latitude, offers[0].city.location.longitude];
     this.map.setView(centerCity);
     this.map.removeLayer(leaflet.marker);
     let icon;
+
+    if (currentOffer) {
+      const offerCords = [currentOffer.location.latitude, currentOffer.location.longitude];
+
+      icon = leaflet.icon({
+        iconUrl: `img/pin-active.svg`,
+        iconSize: [27, 39]
+      });
+
+      leaflet
+        .marker(offerCords, {icon})
+        .addTo(this.markersGroup);
+    }
 
     offers.map((offer) => {
       const offerCords = [offer.location.latitude, offer.location.longitude];
@@ -101,6 +128,10 @@ class OffersMap extends PureComponent {
 }
 
 OffersMap.propTypes = {
+  currentOffer: PropTypes.oneOfType([
+    PropTypes.object.isRequired,
+    PropTypes.array.isRequired
+  ]),
   offers: PropTypes.array.isRequired,
   activeCard: PropTypes.number.isRequired,
   activeZoomControl: PropTypes.bool.isRequired,
