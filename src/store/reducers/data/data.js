@@ -1,10 +1,11 @@
 import {extend} from "../../../utils";
 import {ActionType} from "../../action";
-import reviews from "../../../mocs/reviews";
 
 const initialState = {
   offers: [],
-  reviews,
+  currentOffer: [],
+  currentOfferReviews: [],
+  currentOfferNearby: [],
 };
 
 export const data = (state = initialState, action) => {
@@ -16,6 +17,18 @@ export const data = (state = initialState, action) => {
     case ActionType.LOAD_REVIEWS:
       return extend(state, {
         reviews: action.payload,
+      });
+    case ActionType.LOAD_CURRENT_OFFER:
+      return extend(state, {
+        currentOffer: action.payload,
+      });
+    case ActionType.LOAD_CURRENT_OFFER_REVIEWS:
+      return extend(state, {
+        currentOfferReviews: action.payload,
+      });
+    case ActionType.LOAD_CURRENT_OFFER_NEARBY:
+      return extend(state, {
+        currentOfferNearby: action.payload,
       });
   }
 

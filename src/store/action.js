@@ -6,6 +6,9 @@ export const ActionType = {
   LOAD_REVIEWS: `LOAD_REVIEWS`,
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
   REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
+  LOAD_CURRENT_OFFER: `LOAD_CURRENT_OFFER`,
+  LOAD_CURRENT_OFFER_REVIEWS: `LOAD_CURRENT_OFFER_REVIEWS`,
+  LOAD_CURRENT_OFFER_NEARBY: `LOAD_CURRENT_OFFER_NEARBY`,
 };
 
 export const ActionCreator = {
@@ -32,5 +35,17 @@ export const ActionCreator = {
   redirectToRoute: (url) => ({
     type: ActionType.REDIRECT_TO_ROUTE,
     payload: url,
+  }),
+  loadCurrentOffer: (data) => ({
+    type: ActionType.LOAD_CURRENT_OFFER,
+    payload: data,
+  }),
+  loadCurrentOfferReviews: (data) => ({
+    type: ActionType.LOAD_CURRENT_OFFER_REVIEWS,
+    payload: data,
+  }),
+  loadCurrentOfferNearby: (data) => ({
+    type: ActionType.LOAD_CURRENT_OFFER_NEARBY,
+    payload: data,
   }),
 };

@@ -4,35 +4,35 @@ import PropTypes from "prop-types";
 const Review = (props) => {
   const {review} = props;
   const {
-    name,
-    avatar,
+    user,
     rating,
-    text,
-    dateTime,
+    comment,
     date,
   } = review;
+
+  const formatedDate = new Date(date).toLocaleString(`en-US`, {year: `numeric`, month: `long`});
 
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
-          <img className="reviews__avatar user__avatar" src={avatar} width="54" height="54" alt="Reviews avatar"/>
+          <img className="reviews__avatar user__avatar" src={user[`avatar_url`]} width="54" height="54" alt="Reviews avatar"/>
         </div>
         <span className="reviews__user-name">
-          {name}
+          {user.name}
         </span>
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: Math.round(rating * 2) * 10 + `%`}}></span>
+            <span style={{width: Math.round(rating) * 20 + `%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <p className="reviews__text">
-          {text}
+          {comment}
         </p>
-        <time className="reviews__time" dateTime={dateTime}>{date}</time>
+        <time className="reviews__time" dateTime={date}>{formatedDate}</time>
       </div>
     </li>
   );
@@ -40,11 +40,14 @@ const Review = (props) => {
 
 Review.propTypes = {
   review: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired,
+    user: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      [`is_pro`]: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired,
+      [`avatar_url`]: PropTypes.string.isRequired,
+    }).isRequired,
     rating: PropTypes.number.isRequired,
-    text: PropTypes.string.isRequired,
-    dateTime: PropTypes.string.isRequired,
+    comment: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
   }).isRequired,
 };

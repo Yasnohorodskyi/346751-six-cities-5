@@ -47,7 +47,7 @@ const OfferCard = (props) => {
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
 
-            <span style={{width: Math.round(rating * 2) * 10 + `%`}}></span>
+            <span style={{width: Math.round(rating) * 20 + `%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

@@ -20,16 +20,20 @@ const Header = ({authorizationStatus, email}) => (
         <nav className="header__nav">
           <ul className="header__nav-list">
             <li className="header__nav-item user">
-              <Link className="header__nav-link header__nav-link--profile" to={{pathname: `/login`}}>
-                <div className="header__avatar-wrapper user__avatar-wrapper">
-                </div>
-                <span className="header__user-name user__name">
-                  {authorizationStatus === AuthorizationStatus.AUTH
-                    ? email
-                    : `Sing in`
-                  }
-                </span>
-              </Link>
+              {authorizationStatus === AuthorizationStatus.AUTH
+                ?
+                <Link className="header__nav-link header__nav-link--profile" to={{pathname: `/favorites`}}>
+                  <div className="header__avatar-wrapper user__avatar-wrapper">
+                  </div>
+                  <span className="header__user-name user__name">{email}</span>
+                </Link>
+                :
+                <Link className="header__nav-link header__nav-link--profile" to={{pathname: `/login`}}>
+                  <div className="header__avatar-wrapper user__avatar-wrapper">
+                  </div>
+                  <span className="header__user-name user__name">Sing in</span>
+                </Link>
+              }
             </li>
           </ul>
         </nav>
