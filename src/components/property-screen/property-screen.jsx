@@ -2,7 +2,6 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import cn from "classnames";
-
 import Header from "../header/header";
 import Main from "../main/main";
 import ReviewsList from "../reviews-list/reviews-list";
@@ -11,13 +10,12 @@ import OffersList from "../offers-list/offers-list";
 import CommentForm from "../comment-form/comment-form";
 import {getOffersByCity, sortingReviewsByData} from "../../store/selectors";
 import {fetchOfferById, fetchCurrentOfferReviews, fetchCurrentOfferNearby, changeFavoriteStatus} from "../../store/api-actions";
-
+import browserHistory from "../../browser-history";
 import {AuthorizationStatus} from "../../const";
 
 import withActiveCard from "../../hocs/with-active-card/with-active-card";
 
 const OffersListWithActiveCard = withActiveCard(OffersList);
-
 
 class PropertyScreen extends PureComponent {
   constructor(props) {
@@ -93,9 +91,7 @@ class PropertyScreen extends PureComponent {
                     <button
                       className={cn(`property__bookmark-button button`, {'property__bookmark-button--active': isFavorite})}
                       type="button"
-                      onClick={() => {
-                        updateFavoriteStatus(id, isFavorite ? 0 : 1);
-                      }}
+                      onClick={authorizationStatus === AuthorizationStatus.AUTH ? () => updateFavoriteStatus(id, !isFavorite) : () => browserHistory.push(`/login`)}
                     >
                       <svg className="property__bookmark-icon" width="31" height="33">
                         <use xlinkHref="#icon-bookmark"></use>

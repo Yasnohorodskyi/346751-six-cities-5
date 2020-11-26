@@ -1,12 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import cn from "classnames";
-
 import {changeFavoriteStatus} from "../../store/api-actions";
+import {AuthorizationStatus} from "../../const";
+import browserHistory from "../../browser-history";
 
-const FavoriteCard = ({offer, onHover, updateFavoriteStatus}) => {
+const FavoriteCard = ({offer, onHover, updateFavoriteStatus, authorizationStatus}) => {
   const {
     id,
     title,
@@ -36,9 +37,7 @@ const FavoriteCard = ({offer, onHover, updateFavoriteStatus}) => {
           <button
             className={cn(`place-card__bookmark-button button`, {'place-card__bookmark-button--active': isFavorite})}
             type="button"
-            onClick={() => {
-              updateFavoriteStatus(id, isFavorite ? 0 : 1);
-            }}
+            onClick={authorizationStatus === AuthorizationStatus.AUTH ? () => updateFavoriteStatus(id, !isFavorite) : () => browserHistory.push(`/login`)}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
@@ -76,7 +75,12 @@ FavoriteCard.propTypes = {
     [`preview_image`]: PropTypes.string.isRequired,
   }).isRequired,
   updateFavoriteStatus: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.USER.authorizationStatus,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   updateFavoriteStatus(id, favoriteStatus) {
@@ -85,4 +89,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {FavoriteCard};
-export default connect(null, mapDispatchToProps)(FavoriteCard);
+export default connect(mapStateToProps, mapDispatchToProps)(FavoriteCard);
