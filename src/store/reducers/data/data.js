@@ -1,4 +1,4 @@
-import {extend} from "../../../utils";
+import {extend, getIndex, getNewArray} from "../../../utils";
 import {ActionType} from "../../action";
 
 const initialState = {
@@ -6,6 +6,7 @@ const initialState = {
   currentOffer: [],
   currentOfferReviews: [],
   currentOfferNearby: [],
+  favoriteOffers: [],
 };
 
 export const data = (state = initialState, action) => {
@@ -30,6 +31,27 @@ export const data = (state = initialState, action) => {
       return extend(state, {
         currentOfferNearby: action.payload,
       });
+    case ActionType.UPDATE_FAVORITE_STATUS:
+      const resultObject = {};
+
+      let indexOfUpdateOffer = getIndex(action.payload, state.offers);
+
+      if (indexOfUpdateOffer !== -1) {
+        resultObject.offers = getNewArray(action.payload, state.offers, indexOfUpdateOffer);
+      }
+
+      indexOfUpdateOffer = getIndex(action.payload, state.currentOfferNearby);
+      if (indexOfUpdateOffer !== -1) {
+        resultObject.currentOfferNearby = getNewArray(action.payload, state.currentOfferNearby, indexOfUpdateOffer);
+      }
+
+      if (state.currentOffer.id === action.payload.id) {
+        resultObject.currentOffer = action.payload;
+      }
+
+      resultObject.favoriteOffers = state.favoriteOffers.slice(0).filter((offer) => offer.id !== action.payload.id);
+
+      return extend(state, resultObject);
   }
 
   return state;
