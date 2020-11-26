@@ -45,7 +45,7 @@ const OfferCard = (props) => {
           <button
             className={cn(`place-card__bookmark-button button`, {'place-card__bookmark-button--active': isFavorite})}
             type="button"
-            onClick={authorizationStatus === AuthorizationStatus.AUTH ? () => updateFavoriteStatus(id, !isFavorite) : () => browserHistory.push(`/login`)}
+            onClick={authorizationStatus === AuthorizationStatus.AUTH ? () => updateFavoriteStatus(id, isFavorite ? 0 : 1) : () => browserHistory.push(`/login`)}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>

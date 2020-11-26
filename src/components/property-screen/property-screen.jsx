@@ -91,7 +91,7 @@ class PropertyScreen extends PureComponent {
                     <button
                       className={cn(`property__bookmark-button button`, {'property__bookmark-button--active': isFavorite})}
                       type="button"
-                      onClick={authorizationStatus === AuthorizationStatus.AUTH ? () => updateFavoriteStatus(id, !isFavorite) : () => browserHistory.push(`/login`)}
+                      onClick={authorizationStatus === AuthorizationStatus.AUTH ? () => updateFavoriteStatus(id, isFavorite ? 0 : 1) : () => browserHistory.push(`/login`)}
                     >
                       <svg className="property__bookmark-icon" width="31" height="33">
                         <use xlinkHref="#icon-bookmark"></use>
