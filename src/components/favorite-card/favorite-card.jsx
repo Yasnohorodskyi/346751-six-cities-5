@@ -1,10 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
 import cn from "classnames";
 
-const FavoriteCard = (props) => {
-  const {offer, onHover} = props;
+import {changeFavoriteStatus} from "../../store/api-actions";
+
+const FavoriteCard = ({offer, onHover, updateFavoriteStatus}) => {
   const {
     id,
     title,
@@ -31,7 +33,13 @@ const FavoriteCard = (props) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={cn(`place-card__bookmark-button button`, {'place-card__bookmark-button--active': isFavorite})} type="button">
+          <button
+            className={cn(`place-card__bookmark-button button`, {'place-card__bookmark-button--active': isFavorite})}
+            type="button"
+            onClick={() => {
+              updateFavoriteStatus(id, isFavorite ? 0 : 1);
+            }}
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -64,9 +72,17 @@ FavoriteCard.propTypes = {
     type: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
-    [`isFavorite`]: PropTypes.bool.isRequired,
+    [`is_favorite`]: PropTypes.bool.isRequired,
     [`preview_image`]: PropTypes.string.isRequired,
   }).isRequired,
+  updateFavoriteStatus: PropTypes.func.isRequired,
 };
 
-export default FavoriteCard;
+const mapDispatchToProps = (dispatch) => ({
+  updateFavoriteStatus(id, favoriteStatus) {
+    dispatch(changeFavoriteStatus(id, favoriteStatus));
+  }
+});
+
+export {FavoriteCard};
+export default connect(null, mapDispatchToProps)(FavoriteCard);

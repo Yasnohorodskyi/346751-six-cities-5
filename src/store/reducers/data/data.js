@@ -31,6 +31,10 @@ export const data = (state = initialState, action) => {
       return extend(state, {
         currentOfferNearby: action.payload,
       });
+    case ActionType.LOAD_FAVORITE_OFFERS:
+      return extend(state, {
+        favoriteOffers: action.payload,
+      });
     case ActionType.UPDATE_FAVORITE_STATUS:
       const resultObject = {};
 

@@ -9,6 +9,7 @@ export const ActionType = {
   LOAD_CURRENT_OFFER: `LOAD_CURRENT_OFFER`,
   LOAD_CURRENT_OFFER_REVIEWS: `LOAD_CURRENT_OFFER_REVIEWS`,
   LOAD_CURRENT_OFFER_NEARBY: `LOAD_CURRENT_OFFER_NEARBY`,
+  LOAD_FAVORITE_OFFERS: `LOAD_FAVORITE_OFFERS`,
   UPDATE_FAVORITE_STATUS: `UPDATE_FAVORITE_STATUS`
 };
 
@@ -47,6 +48,10 @@ export const ActionCreator = {
   }),
   loadCurrentOfferNearby: (data) => ({
     type: ActionType.LOAD_CURRENT_OFFER_NEARBY,
+    payload: data,
+  }),
+  loadFavoriteOffers: (data) => ({
+    type: ActionType.LOAD_FAVORITE_OFFERS,
     payload: data,
   }),
   updateFavoriteStatus: (data) => ({

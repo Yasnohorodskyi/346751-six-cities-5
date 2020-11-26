@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
+import cn from "classnames";
 import {changeFavoriteStatus} from "../../store/api-actions";
 
 const OfferCard = (props) => {
@@ -40,7 +41,7 @@ const OfferCard = (props) => {
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
-            className={`place-card__bookmark-button ` + (isFavorite ? `place-card__bookmark-button--active ` : ` `) + `button`}
+            className={cn(`place-card__bookmark-button button`, {'place-card__bookmark-button--active': isFavorite})}
             type="button"
             onClick={() => {
               updateFavoriteStatus(id, isFavorite ? 0 : 1);

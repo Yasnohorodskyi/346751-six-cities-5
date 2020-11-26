@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
+import cn from "classnames";
 
 import Header from "../header/header";
 import Main from "../main/main";
@@ -9,7 +10,7 @@ import OffersMap from "../offers-map/offers-map";
 import OffersList from "../offers-list/offers-list";
 import CommentForm from "../comment-form/comment-form";
 import {getOffersByCity, sortingReviewsByData} from "../../store/selectors";
-import {fetchOfferById, fetchCurrentOfferReviews, fetchCurrentOfferNearby} from "../../store/api-actions";
+import {fetchOfferById, fetchCurrentOfferReviews, fetchCurrentOfferNearby, changeFavoriteStatus} from "../../store/api-actions";
 
 import {AuthorizationStatus} from "../../const";
 
@@ -42,9 +43,10 @@ class PropertyScreen extends PureComponent {
   }
 
   render() {
-    const {currentOffer, reviews, offersNearby, authorizationStatus, currentOfferId} = this.props;
+    const {currentOffer, reviews, offersNearby, authorizationStatus, currentOfferId, updateFavoriteStatus} = this.props;
     if (Object.keys(currentOffer).length && offersNearby.length) {
       const {
+        id,
         title,
         type,
         rating,
@@ -88,7 +90,13 @@ class PropertyScreen extends PureComponent {
                     <h1 className="property__name">
                       {title}
                     </h1>
-                    <button className={`property__bookmark-button ` + (isFavorite ? `property__bookmark-button--active ` : ` `) + `button`} type="button">
+                    <button
+                      className={cn(`property__bookmark-button button`, {'property__bookmark-button--active': isFavorite})}
+                      type="button"
+                      onClick={() => {
+                        updateFavoriteStatus(id, isFavorite ? 0 : 1);
+                      }}
+                    >
                       <svg className="property__bookmark-icon" width="31" height="33">
                         <use xlinkHref="#icon-bookmark"></use>
                       </svg>
@@ -194,6 +202,7 @@ PropertyScreen.propTypes = {
   currentOfferId: PropTypes.number.isRequired,
   offersNearby: PropTypes.array.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
@@ -220,6 +229,7 @@ PropertyScreen.propTypes = {
   loadCurrentOfferReviews: PropTypes.func.isRequired,
   loadCurrentOfferNearby: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
+  updateFavoriteStatus: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -239,6 +249,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   loadCurrentOfferNearby(id) {
     dispatch(fetchCurrentOfferNearby(id));
+  },
+  updateFavoriteStatus(id, favoriteStatus) {
+    dispatch(changeFavoriteStatus(id, favoriteStatus));
   },
 });
 
