@@ -9,7 +9,7 @@ const ReviewsList = ({reviews}) => {
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
       <ul className="reviews__list">
         { !!reviews.length &&
-          reviews.map((review, i) => (
+          reviews.slice(0, 10).map((review, i) => (
             <ReviewItem
               key={`${i}-review`}
               review={review}
