@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ReviewItem from "../review-item/review-item";
+import Review from "../review/review";
 
 const ReviewsList = ({reviews}) => {
 
@@ -10,7 +10,7 @@ const ReviewsList = ({reviews}) => {
       <ul className="reviews__list">
         { !!reviews.length &&
           reviews.slice(0, 10).map((review, i) => (
-            <ReviewItem
+            <Review
               key={`${i}-review`}
               review={review}
             />
