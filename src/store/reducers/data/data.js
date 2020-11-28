@@ -15,10 +15,6 @@ export const data = (state = initialState, action) => {
       return extend(state, {
         offers: action.payload,
       });
-    case ActionType.LOAD_REVIEWS:
-      return extend(state, {
-        reviews: action.payload,
-      });
     case ActionType.LOAD_CURRENT_OFFER:
       return extend(state, {
         currentOffer: action.payload,
