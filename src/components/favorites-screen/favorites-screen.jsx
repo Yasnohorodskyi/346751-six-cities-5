@@ -26,7 +26,7 @@ class FavoritesScreen extends PureComponent {
 
     const favoriteOffersForCity = favoriteOffersCities.map((cityName, i) => {
       return (
-        <li key={`${i}-${cityName}`} className="favorites__locations-items">
+        <li key={`${i}-favoriteOffersForCity`} className="favorites__locations-items">
           <div className="favorites__locations locations locations--current">
             <div className="locations__item">
               <a className="locations__item-link" href="#">
