@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Main render should render correctly 1`] = `
+<main
+  className="page__main undefined"
+/>
+`;
