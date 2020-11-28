@@ -8,7 +8,7 @@ import ReviewsList from "../reviews-list/reviews-list";
 import OffersMap from "../offers-map/offers-map";
 import OffersList from "../offers-list/offers-list";
 import CommentForm from "../comment-form/comment-form";
-import {getOffersByCity, sortingReviewsByData} from "../../store/selectors";
+import {sortingReviewsByData} from "../../store/selectors";
 import {fetchOfferById, fetchCurrentOfferReviews, fetchCurrentOfferNearby, changeFavoriteStatus} from "../../store/api-actions";
 import browserHistory from "../../browser-history";
 import {AuthorizationStatus} from "../../const";
@@ -175,7 +175,7 @@ class PropertyScreen extends PureComponent {
               <section className="near-places places">
                 <h2 className="near-places__title">Other places in the neighbourhood</h2>
                 <OffersListWithActiveCard
-                  offers={offersNearby}
+                  offers={offersNearby.slice(0, 3)}
                   renderClassName={() => (`near-places__list`)}
                   renderOfferMark={() => (false)}
                 />
@@ -196,28 +196,27 @@ class PropertyScreen extends PureComponent {
 PropertyScreen.propTypes = {
   currentOfferId: PropTypes.number.isRequired,
   offersNearby: PropTypes.array.isRequired,
-  offers: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    price: PropTypes.number.isRequired,
-    [`is_favorite`]: PropTypes.bool.isRequired,
-    images: PropTypes.arrayOf(PropTypes.string).isRequired,
-    [`is_premium`]: PropTypes.bool.isRequired,
-    bedrooms: PropTypes.number.isRequired,
-    [`max_adults`]: PropTypes.number.isRequired,
-    goods: PropTypes.arrayOf(PropTypes.string).isRequired,
-    host: PropTypes.shape({
-      [`avatar_url`]: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      [`is_pro`]: PropTypes.bool.isRequired,
-    }).isRequired,
-    description: PropTypes.string.isRequired,
-  })).isRequired,
   currentOffer: PropTypes.oneOfType([
     PropTypes.object.isRequired,
-    PropTypes.array.isRequired
+    PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      rating: PropTypes.number.isRequired,
+      price: PropTypes.number.isRequired,
+      [`is_favorite`]: PropTypes.bool.isRequired,
+      images: PropTypes.arrayOf(PropTypes.string).isRequired,
+      [`is_premium`]: PropTypes.bool.isRequired,
+      bedrooms: PropTypes.number.isRequired,
+      [`max_adults`]: PropTypes.number.isRequired,
+      goods: PropTypes.arrayOf(PropTypes.string).isRequired,
+      host: PropTypes.shape({
+        [`avatar_url`]: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        [`is_pro`]: PropTypes.bool.isRequired,
+      }).isRequired,
+      description: PropTypes.string.isRequired,
+    })).isRequired,
   ]),
   reviews: PropTypes.array.isRequired,
   loadCurrentOffer: PropTypes.func.isRequired,
@@ -228,7 +227,6 @@ PropertyScreen.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  offers: getOffersByCity(state),
   currentOffer: state.DATA.currentOffer,
   reviews: sortingReviewsByData(state),
   offersNearby: state.DATA.currentOfferNearby,
