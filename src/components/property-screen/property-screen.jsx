@@ -1,22 +1,21 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-
+import cn from "classnames";
 import Header from "../header/header";
 import Main from "../main/main";
 import ReviewsList from "../reviews-list/reviews-list";
 import OffersMap from "../offers-map/offers-map";
 import OffersList from "../offers-list/offers-list";
 import CommentForm from "../comment-form/comment-form";
-import {getOffersByCity} from "../../store/selectors";
-import {fetchOfferById, fetchCurrentOfferReviews, fetchCurrentOfferNearby} from "../../store/api-actions";
-
+import {sortingReviewsByData} from "../../store/selectors";
+import {fetchOfferById, fetchCurrentOfferReviews, fetchCurrentOfferNearby, changeFavoriteStatus} from "../../store/api-actions";
+import browserHistory from "../../browser-history";
 import {AuthorizationStatus} from "../../const";
 
 import withActiveCard from "../../hocs/with-active-card/with-active-card";
 
 const OffersListWithActiveCard = withActiveCard(OffersList);
-
 
 class PropertyScreen extends PureComponent {
   constructor(props) {
@@ -42,9 +41,10 @@ class PropertyScreen extends PureComponent {
   }
 
   render() {
-    const {currentOffer, reviews, offersNearby, authorizationStatus, currentOfferId} = this.props;
+    const {currentOffer, reviews, offersNearby, authorizationStatus, currentOfferId, updateFavoriteStatus} = this.props;
     if (Object.keys(currentOffer).length && offersNearby.length) {
       const {
+        id,
         title,
         type,
         rating,
@@ -88,7 +88,11 @@ class PropertyScreen extends PureComponent {
                     <h1 className="property__name">
                       {title}
                     </h1>
-                    <button className={`property__bookmark-button ` + (isFavorite ? `property__bookmark-button--active ` : ` `) + `button`} type="button">
+                    <button
+                      className={cn(`property__bookmark-button button`, {'property__bookmark-button--active': isFavorite})}
+                      type="button"
+                      onClick={authorizationStatus === AuthorizationStatus.AUTH ? () => updateFavoriteStatus(id, isFavorite ? 0 : 1) : () => browserHistory.push(`/login`)}
+                    >
                       <svg className="property__bookmark-icon" width="31" height="33">
                         <use xlinkHref="#icon-bookmark"></use>
                       </svg>
@@ -150,18 +154,17 @@ class PropertyScreen extends PureComponent {
                       </p>
                     </div>
                   </div>
-                  <section className="property__reviews reviews">
-                    <ReviewsList
-                      reviews={reviews}
-                    />
-                    { authorizationStatus === AuthorizationStatus.AUTH &&
-                      <CommentForm currentOfferId={currentOfferId}/>
-                    }
-                  </section>
+                  <ReviewsList
+                    reviews={reviews}
+                  />
+                  { authorizationStatus === AuthorizationStatus.AUTH &&
+                    <CommentForm currentOfferId={currentOfferId}/>
+                  }
                 </div>
               </div>
               <section className="property__map map">
                 <OffersMap
+                  currentOffer={currentOffer}
                   offers={offersNearby}
                   activeZoomControl={true}
                   activeScrollWheelZoom={false}
@@ -172,7 +175,7 @@ class PropertyScreen extends PureComponent {
               <section className="near-places places">
                 <h2 className="near-places__title">Other places in the neighbourhood</h2>
                 <OffersListWithActiveCard
-                  offers={offersNearby}
+                  offers={offersNearby.slice(0, 3)}
                   renderClassName={() => (`near-places__list`)}
                   renderOfferMark={() => (false)}
                 />
@@ -193,39 +196,39 @@ class PropertyScreen extends PureComponent {
 PropertyScreen.propTypes = {
   currentOfferId: PropTypes.number.isRequired,
   offersNearby: PropTypes.array.isRequired,
-  offers: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    price: PropTypes.number.isRequired,
-    [`is_favorite`]: PropTypes.bool.isRequired,
-    images: PropTypes.arrayOf(PropTypes.string).isRequired,
-    [`is_premium`]: PropTypes.bool.isRequired,
-    bedrooms: PropTypes.number.isRequired,
-    [`max_adults`]: PropTypes.number.isRequired,
-    goods: PropTypes.arrayOf(PropTypes.string).isRequired,
-    host: PropTypes.shape({
-      [`avatar_url`]: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      [`is_pro`]: PropTypes.bool.isRequired,
-    }).isRequired,
-    description: PropTypes.string.isRequired,
-  })).isRequired,
   currentOffer: PropTypes.oneOfType([
     PropTypes.object.isRequired,
-    PropTypes.array.isRequired
+    PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      rating: PropTypes.number.isRequired,
+      price: PropTypes.number.isRequired,
+      [`is_favorite`]: PropTypes.bool.isRequired,
+      images: PropTypes.arrayOf(PropTypes.string).isRequired,
+      [`is_premium`]: PropTypes.bool.isRequired,
+      bedrooms: PropTypes.number.isRequired,
+      [`max_adults`]: PropTypes.number.isRequired,
+      goods: PropTypes.arrayOf(PropTypes.string).isRequired,
+      host: PropTypes.shape({
+        [`avatar_url`]: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        [`is_pro`]: PropTypes.bool.isRequired,
+      }).isRequired,
+      description: PropTypes.string.isRequired,
+    })).isRequired,
   ]),
   reviews: PropTypes.array.isRequired,
   loadCurrentOffer: PropTypes.func.isRequired,
   loadCurrentOfferReviews: PropTypes.func.isRequired,
   loadCurrentOfferNearby: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
+  updateFavoriteStatus: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  offers: getOffersByCity(state),
   currentOffer: state.DATA.currentOffer,
-  reviews: state.DATA.currentOfferReviews,
+  reviews: sortingReviewsByData(state),
   offersNearby: state.DATA.currentOfferNearby,
   authorizationStatus: state.USER.authorizationStatus,
 });
@@ -239,6 +242,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   loadCurrentOfferNearby(id) {
     dispatch(fetchCurrentOfferNearby(id));
+  },
+  updateFavoriteStatus(id, favoriteStatus) {
+    dispatch(changeFavoriteStatus(id, favoriteStatus));
   },
 });
 

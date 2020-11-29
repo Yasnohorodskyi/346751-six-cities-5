@@ -1,10 +1,13 @@
 import React, {PureComponent, createRef} from "react";
+import {Redirect} from "react-router-dom";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {login} from "../../store/api-actions";
 
 import Header from "../header/header";
 import Main from "../main/main";
+
+import {AuthorizationStatus} from "../../const";
 
 class AuthScreen extends PureComponent {
   constructor(props) {
@@ -28,7 +31,11 @@ class AuthScreen extends PureComponent {
   }
 
   render() {
-    const {city} = this.props;
+    const {city, authorizationStatus} = this.props;
+
+    if (authorizationStatus === AuthorizationStatus.AUTH) {
+      return <Redirect to={`/`} />;
+    }
 
     return (
       <div className="page page--gray page--login">
@@ -50,7 +57,7 @@ class AuthScreen extends PureComponent {
                     type="email"
                     name="email"
                     placeholder="Email"
-                    required=""
+                    required
                     ref={this.loginRef}
                   />
                 </div>
@@ -61,7 +68,7 @@ class AuthScreen extends PureComponent {
                     type="password"
                     name="password"
                     placeholder="Password"
-                    required=""
+                    required
                     ref={this.passwordRef}
                   />
                 </div>
@@ -84,11 +91,13 @@ class AuthScreen extends PureComponent {
 
 AuthScreen.propTypes = {
   city: PropTypes.string.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: state.PROCESS.city,
+  authorizationStatus: state.USER.authorizationStatus,
 });
 
 const mapDispatchToProps = (dispatch) => ({

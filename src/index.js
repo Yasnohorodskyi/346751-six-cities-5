@@ -35,4 +35,14 @@ Promise.all([
       </Provider>,
       document.querySelector(`#root`)
   );
+})
+.catch(() => {
+  ReactDOM.render(
+      <Provider store={store}>
+        <p style={{color: `red`, fontSize: `40px`, position: `absolute`, top: `50%`, left: `50%`, transform: `translate(-50%, -50%)`}}>
+          Server is not available now please try again later
+        </p>
+      </Provider>,
+      document.querySelector(`#root`)
+  );
 });

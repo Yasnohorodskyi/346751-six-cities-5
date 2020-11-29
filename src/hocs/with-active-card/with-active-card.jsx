@@ -10,7 +10,7 @@ const withActiveCard = (Component) => {
       super(props);
 
       this.state = {
-        activeCard: ``,
+        activeCard: -1,
       };
     }
 

@@ -27,18 +27,18 @@ const MainPage = ({offers, city, onCityChange, sortOption}) => {
     let sortedOffers = offers.slice(0);
 
     switch (sortOption) {
-      case SortOptions.popular:
+      case SortOptions.POPULAR:
         return offers;
 
-      case SortOptions.lowToHigh:
+      case SortOptions.LOW_TO_HIGH:
         sortedOffers.sort((a, b) => (a.price > b.price ? 1 : -1));
         return sortedOffers;
 
-      case SortOptions.highToLow:
+      case SortOptions.HIGH_TO_LOW:
         sortedOffers.sort((a, b) => (a.price > b.price ? -1 : 1));
         return sortedOffers;
 
-      case SortOptions.rating:
+      case SortOptions.RATING:
         sortedOffers.sort((a, b) => (a.rating > b.rating ? -1 : 1));
         return sortedOffers;
     }

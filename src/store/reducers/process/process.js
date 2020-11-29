@@ -4,7 +4,7 @@ import {Cities, SortOptions} from "../../../const";
 
 const initialState = {
   city: Cities[0],
-  sortOption: SortOptions.popular,
+  sortOption: SortOptions.POPULAR,
   activeCard: -1,
 };
 

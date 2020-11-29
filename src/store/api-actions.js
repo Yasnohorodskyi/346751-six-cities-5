@@ -9,9 +9,7 @@ export const fetchOffers = () => (dispatch, _getState, api) => (
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(`/login`)
     .then((response) => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH, response.data.email)))
-    .catch(() => {
-      // throw err;
-    })
+    .catch(() => {})
 );
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (
@@ -31,13 +29,25 @@ export const fetchCurrentOfferReviews = (id) => (dispatch, _getState, api) => (
     .then(({data}) => dispatch(ActionCreator.loadCurrentOfferReviews(data)))
 );
 
+export const fetchFavoriteOffers = () => (dispatch, _getState, api) => (
+  api.get(`/favorite`)
+    .then(({data}) => dispatch(ActionCreator.loadFavoriteOffers(data)))
+);
+
 export const fetchCurrentOfferNearby = (id) => (dispatch, _getState, api) => (
   api.get(`/hotels/${id}/nearby`)
     .then(({data}) => dispatch(ActionCreator.loadCurrentOfferNearby(data)))
 );
 
-
 export const postNewReview = (id, {review: comment, rating}) => (dispatch, _getState, api) => (
   api.post(`/comments/${id}`, {comment, rating})
     .then(({data}) => dispatch(ActionCreator.loadCurrentOfferReviews(data)))
+);
+
+
+export const changeFavoriteStatus = (id, favoriteStatus) => (dispatch, _getState, api) => (
+  api.post(`/favorite/${id}/${favoriteStatus}`)
+    .then(({data}) => {
+      dispatch(ActionCreator.updateFavoriteStatus(data));
+    })
 );

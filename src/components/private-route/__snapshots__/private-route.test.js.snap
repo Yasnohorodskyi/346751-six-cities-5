@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrivateRoute render should render with AUTH 1`] = `null`;
+
+exports[`PrivateRoute render should render with NO_AUTH 1`] = `null`;

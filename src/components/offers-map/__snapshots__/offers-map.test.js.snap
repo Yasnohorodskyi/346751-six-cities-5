@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OffersMap render should render with current offer 1`] = `
+<section
+  className="cities__map map"
+>
+  <div
+    id="map"
+    style={
+      Object {
+        "height": "100%",
+        "width": "100%",
+      }
+    }
+  />
+</section>
+`;
+
+exports[`OffersMap render should render without current offer 1`] = `
+<section
+  className="cities__map map"
+>
+  <div
+    id="map"
+    style={
+      Object {
+        "height": "100%",
+        "width": "100%",
+      }
+    }
+  />
+</section>
+`;
