@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import cn from "classnames";
 import {changeFavoriteStatus} from "../../store/api-actions";
-import {AuthorizationStatus} from "../../const";
+import {AuthorizationStatus, AppRoute} from "../../const";
 import browserHistory from "../../browser-history";
 
 const FavoriteCard = ({offer, onHover, updateFavoriteStatus, authorizationStatus}) => {
@@ -24,7 +24,7 @@ const FavoriteCard = ({offer, onHover, updateFavoriteStatus, authorizationStatus
       onMouseOver={onHover}
     >
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <Link to={{pathname: `/offer/${id}`}}>
+        <Link to={{pathname: `${AppRoute.ROOM}${id}`}}>
           <img className="place-card__image" src={previewImage} width="150" height="110" alt="Place image"/>
         </Link>
       </div>
@@ -37,7 +37,7 @@ const FavoriteCard = ({offer, onHover, updateFavoriteStatus, authorizationStatus
           <button
             className={cn(`place-card__bookmark-button button`, {'place-card__bookmark-button--active': isFavorite})}
             type="button"
-            onClick={authorizationStatus === AuthorizationStatus.AUTH ? () => updateFavoriteStatus(id, isFavorite ? 0 : 1) : () => browserHistory.push(`/login`)}
+            onClick={authorizationStatus === AuthorizationStatus.AUTH ? () => updateFavoriteStatus(id, isFavorite ? 0 : 1) : () => browserHistory.push(AppRoute.LOGIN)}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
@@ -52,7 +52,7 @@ const FavoriteCard = ({offer, onHover, updateFavoriteStatus, authorizationStatus
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={{pathname: `/offer/${id}`}}>
+          <Link to={{pathname: `${AppRoute.ROOM}${id}`}}>
             {title}
           </Link>
         </h2>

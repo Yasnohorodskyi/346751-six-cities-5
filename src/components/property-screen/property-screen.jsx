@@ -11,7 +11,7 @@ import CommentForm from "../comment-form/comment-form";
 import {sortingReviewsByData} from "../../store/selectors";
 import {fetchOfferById, fetchCurrentOfferReviews, fetchCurrentOfferNearby, changeFavoriteStatus} from "../../store/api-actions";
 import browserHistory from "../../browser-history";
-import {AuthorizationStatus} from "../../const";
+import {AuthorizationStatus, AppRoute} from "../../const";
 
 import withActiveCard from "../../hocs/with-active-card/with-active-card";
 
@@ -91,7 +91,7 @@ class PropertyScreen extends PureComponent {
                     <button
                       className={cn(`property__bookmark-button button`, {'property__bookmark-button--active': isFavorite})}
                       type="button"
-                      onClick={authorizationStatus === AuthorizationStatus.AUTH ? () => updateFavoriteStatus(id, isFavorite ? 0 : 1) : () => browserHistory.push(`/login`)}
+                      onClick={authorizationStatus === AuthorizationStatus.AUTH ? () => updateFavoriteStatus(id, isFavorite ? 0 : 1) : () => browserHistory.push(AppRoute.LOGIN)}
                     >
                       <svg className="property__bookmark-icon" width="31" height="33">
                         <use xlinkHref="#icon-bookmark"></use>
