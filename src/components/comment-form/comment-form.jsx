@@ -12,6 +12,7 @@ class CommentForm extends PureComponent {
       rating: 0,
       review: ``,
       formFieldDisabled: false,
+      submitButtonDisabled: true,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -26,7 +27,13 @@ class CommentForm extends PureComponent {
     const {onSubmitAction, currentOfferId} = this.props;
 
     evt.preventDefault();
-    this.setState(() => ({formFieldDisabled: true}));
+
+    this.errorRef.current.textContent = ``;
+
+    this.setState(() => ({
+      formFieldDisabled: true,
+      submitButtonDisabled: true,
+    }));
 
     onSubmitAction(currentOfferId, {review, rating})
       .then(() => {
@@ -35,17 +42,29 @@ class CommentForm extends PureComponent {
           rating: 0,
           review: ``,
           formFieldDisabled: false,
+          submitButtonDisabled: true,
         }));
       })
       .catch(() => {
         this.errorRef.current.textContent = `Something went wrong. Please try again later.`;
-        this.setState(() => ({formFieldDisabled: false}));
+        this.setState(() => ({
+          formFieldDisabled: false,
+          submitButtonDisabled: false,
+        }));
       });
   }
 
   handleFieldChange(evt) {
     const {name, value} = evt.target;
     this.setState({[name]: value});
+
+    if (this.state.review.length < 50 || this.state.review.length > 300 || this.state.rating < 1) {
+      this.setState({submitButtonDisabled: true});
+      console.log(`true: ` + this.state.review.length);
+    } else {
+      this.setState({submitButtonDisabled: false});
+      console.log(`false: ` + this.state.review.length);
+    }
   }
 
   render() {
@@ -115,7 +134,7 @@ class CommentForm extends PureComponent {
           <p className="reviews__help">
             To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
           </p>
-          <button className="reviews__submit form__submit button" type="submit" disabled={this.state.review.length < 50 || this.state.review.length > 300 || this.state.rating < 1} >
+          <button className="reviews__submit form__submit button" type="submit" disabled={this.state.submitButtonDisabled} >
             Submit
           </button>
         </div>
