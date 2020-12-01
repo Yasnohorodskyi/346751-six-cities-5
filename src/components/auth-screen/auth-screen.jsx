@@ -7,7 +7,7 @@ import {login} from "../../store/api-actions";
 import Header from "../header/header";
 import Main from "../main/main";
 
-import {AuthorizationStatus} from "../../const";
+import {AuthorizationStatus, AppRoute} from "../../const";
 
 class AuthScreen extends PureComponent {
   constructor(props) {
@@ -34,7 +34,7 @@ class AuthScreen extends PureComponent {
     const {city, authorizationStatus} = this.props;
 
     if (authorizationStatus === AuthorizationStatus.AUTH) {
-      return <Redirect to={`/`} />;
+      return <Redirect to={AppRoute.MAIN} />;
     }
 
     return (
