@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ReviewsList render should render with one review 1`] = `
-<section
-  className="property__reviews reviews"
->
+Array [
   <h2
     className="reviews__title"
   >
@@ -13,7 +11,7 @@ exports[`ReviewsList render should render with one review 1`] = `
     >
       1
     </span>
-  </h2>
+  </h2>,
   <ul
     className="reviews__list"
   >
@@ -76,14 +74,12 @@ exports[`ReviewsList render should render with one review 1`] = `
         </time>
       </div>
     </li>
-  </ul>
-</section>
+  </ul>,
+]
 `;
 
 exports[`ReviewsList render should render with two reviews 1`] = `
-<section
-  className="property__reviews reviews"
->
+Array [
   <h2
     className="reviews__title"
   >
@@ -93,7 +89,7 @@ exports[`ReviewsList render should render with two reviews 1`] = `
     >
       2
     </span>
-  </h2>
+  </h2>,
   <ul
     className="reviews__list"
   >
@@ -215,14 +211,12 @@ exports[`ReviewsList render should render with two reviews 1`] = `
         </time>
       </div>
     </li>
-  </ul>
-</section>
+  </ul>,
+]
 `;
 
 exports[`ReviewsList render should render without reviews 1`] = `
-<section
-  className="property__reviews reviews"
->
+Array [
   <h2
     className="reviews__title"
   >
@@ -232,9 +226,9 @@ exports[`ReviewsList render should render without reviews 1`] = `
     >
       0
     </span>
-  </h2>
+  </h2>,
   <ul
     className="reviews__list"
-  />
-</section>
+  />,
+]
 `;

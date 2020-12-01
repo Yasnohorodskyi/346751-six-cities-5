@@ -17,6 +17,7 @@ exports[`CommentForm render correctly With currentOFferId = -1 1`] = `
     className="reviews__rating-form form__rating"
   >
     <input
+      checked={false}
       className="form__rating-input visually-hidden"
       disabled={false}
       id="5-stars"
@@ -42,6 +43,7 @@ exports[`CommentForm render correctly With currentOFferId = -1 1`] = `
       </svg>
     </label>
     <input
+      checked={false}
       className="form__rating-input visually-hidden"
       disabled={false}
       id="4-stars"
@@ -66,6 +68,7 @@ exports[`CommentForm render correctly With currentOFferId = -1 1`] = `
       </svg>
     </label>
     <input
+      checked={false}
       className="form__rating-input visually-hidden"
       disabled={false}
       id="3-stars"
@@ -90,6 +93,7 @@ exports[`CommentForm render correctly With currentOFferId = -1 1`] = `
       </svg>
     </label>
     <input
+      checked={false}
       className="form__rating-input visually-hidden"
       disabled={false}
       id="2-stars"
@@ -114,6 +118,7 @@ exports[`CommentForm render correctly With currentOFferId = -1 1`] = `
       </svg>
     </label>
     <input
+      checked={false}
       className="form__rating-input visually-hidden"
       disabled={false}
       id="1-star"
@@ -147,6 +152,7 @@ exports[`CommentForm render correctly With currentOFferId = -1 1`] = `
     onChange={[Function]}
     placeholder="Tell how was your stay, what you like and what can be improved"
     required=""
+    value=""
   />
   <div
     className="reviews__button-wrapper"
@@ -177,13 +183,16 @@ exports[`CommentForm render correctly With currentOFferId = -1 1`] = `
     </button>
   </div>
   <p
+    hidden={true}
     style={
       Object {
         "color": "red",
         "fontSize": "16",
       }
     }
-  />
+  >
+    Something went wrong. Please try again later.
+  </p>
 </form>
 `;
 
@@ -204,6 +213,7 @@ exports[`CommentForm render correctly With currentOFferId = 0 1`] = `
     className="reviews__rating-form form__rating"
   >
     <input
+      checked={false}
       className="form__rating-input visually-hidden"
       disabled={false}
       id="5-stars"
@@ -229,6 +239,7 @@ exports[`CommentForm render correctly With currentOFferId = 0 1`] = `
       </svg>
     </label>
     <input
+      checked={false}
       className="form__rating-input visually-hidden"
       disabled={false}
       id="4-stars"
@@ -253,6 +264,7 @@ exports[`CommentForm render correctly With currentOFferId = 0 1`] = `
       </svg>
     </label>
     <input
+      checked={false}
       className="form__rating-input visually-hidden"
       disabled={false}
       id="3-stars"
@@ -277,6 +289,7 @@ exports[`CommentForm render correctly With currentOFferId = 0 1`] = `
       </svg>
     </label>
     <input
+      checked={false}
       className="form__rating-input visually-hidden"
       disabled={false}
       id="2-stars"
@@ -301,6 +314,7 @@ exports[`CommentForm render correctly With currentOFferId = 0 1`] = `
       </svg>
     </label>
     <input
+      checked={false}
       className="form__rating-input visually-hidden"
       disabled={false}
       id="1-star"
@@ -334,6 +348,7 @@ exports[`CommentForm render correctly With currentOFferId = 0 1`] = `
     onChange={[Function]}
     placeholder="Tell how was your stay, what you like and what can be improved"
     required=""
+    value=""
   />
   <div
     className="reviews__button-wrapper"
@@ -364,13 +379,16 @@ exports[`CommentForm render correctly With currentOFferId = 0 1`] = `
     </button>
   </div>
   <p
+    hidden={true}
     style={
       Object {
         "color": "red",
         "fontSize": "16",
       }
     }
-  />
+  >
+    Something went wrong. Please try again later.
+  </p>
 </form>
 `;
 
@@ -391,6 +409,7 @@ exports[`CommentForm render correctly With currentOFferId = 1 1`] = `
     className="reviews__rating-form form__rating"
   >
     <input
+      checked={false}
       className="form__rating-input visually-hidden"
       disabled={false}
       id="5-stars"
@@ -416,6 +435,7 @@ exports[`CommentForm render correctly With currentOFferId = 1 1`] = `
       </svg>
     </label>
     <input
+      checked={false}
       className="form__rating-input visually-hidden"
       disabled={false}
       id="4-stars"
@@ -440,6 +460,7 @@ exports[`CommentForm render correctly With currentOFferId = 1 1`] = `
       </svg>
     </label>
     <input
+      checked={false}
       className="form__rating-input visually-hidden"
       disabled={false}
       id="3-stars"
@@ -464,6 +485,7 @@ exports[`CommentForm render correctly With currentOFferId = 1 1`] = `
       </svg>
     </label>
     <input
+      checked={false}
       className="form__rating-input visually-hidden"
       disabled={false}
       id="2-stars"
@@ -488,6 +510,7 @@ exports[`CommentForm render correctly With currentOFferId = 1 1`] = `
       </svg>
     </label>
     <input
+      checked={false}
       className="form__rating-input visually-hidden"
       disabled={false}
       id="1-star"
@@ -521,6 +544,7 @@ exports[`CommentForm render correctly With currentOFferId = 1 1`] = `
     onChange={[Function]}
     placeholder="Tell how was your stay, what you like and what can be improved"
     required=""
+    value=""
   />
   <div
     className="reviews__button-wrapper"
@@ -551,12 +575,15 @@ exports[`CommentForm render correctly With currentOFferId = 1 1`] = `
     </button>
   </div>
   <p
+    hidden={true}
     style={
       Object {
         "color": "red",
         "fontSize": "16",
       }
     }
-  />
+  >
+    Something went wrong. Please try again later.
+  </p>
 </form>
 `;
