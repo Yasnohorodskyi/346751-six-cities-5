@@ -1,151 +1,142 @@
-import React, {PureComponent, createRef} from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
+import {extend} from "../../utils";
 
 import {postNewReview} from "../../store/api-actions";
 
-class CommentForm extends PureComponent {
-  constructor(props) {
-    super(props);
+const CommentForm = ({onSubmitAction, currentOfferId}) => {
+  const [isSubmitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+  const [isFormFieldDisabled, setFormFieldDisabled] = useState(false);
+  const [isSubmitError, setSubmitError] = useState(false);
+  const [comment, setComment] = useState({
+    rating: 0,
+    review: ``,
+  });
 
-    this.state = {
-      rating: 0,
-      review: ``,
-      formFieldDisabled: false,
-      submitButtonDisabled: true,
-    };
+  const {rating, review} = comment;
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleFieldChange = this.handleFieldChange.bind(this);
-
-    this.formRef = createRef();
-    this.errorRef = createRef();
-  }
-
-  handleSubmit(evt) {
-    const {rating, review} = this.state;
-    const {onSubmitAction, currentOfferId} = this.props;
-
+  const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    this.errorRef.current.textContent = ``;
+    const handleMultiplyClick = new Promise((resolve) => {
+      setSubmitButtonDisabled(true);
+      resolve();
+    });
 
-    this.setState(() => ({
-      formFieldDisabled: true,
-      submitButtonDisabled: true,
-    }));
+    handleMultiplyClick.then(() => {
+      setFormFieldDisabled(true);
+      onSubmitAction(currentOfferId, {review, rating})
+        .then(() => {
+          setComment({
+            rating: 0,
+            review: ``,
+          });
+          setFormFieldDisabled(false);
+          setSubmitButtonDisabled(false);
+        })
+        .catch(() => {
+          setSubmitError(true);
+          setFormFieldDisabled(false);
+          setSubmitButtonDisabled(false);
+        });
+    });
 
-    onSubmitAction(currentOfferId, {review, rating})
-      .then(() => {
-        this.formRef.current.reset();
-        this.setState(() => ({
-          rating: 0,
-          review: ``,
-          formFieldDisabled: false,
-          submitButtonDisabled: true,
-        }));
-      })
-      .catch(() => {
-        this.errorRef.current.textContent = `Something went wrong. Please try again later.`;
-        this.setState(() => ({
-          formFieldDisabled: false,
-          submitButtonDisabled: false,
-        }));
-      });
-  }
+    setSubmitError(false);
+  };
 
-  handleFieldChange(evt) {
+  const handleFieldChange = (evt) => {
     const {name, value} = evt.target;
-    this.setState({[name]: value});
+    setComment((prevComment) => extend(prevComment, {[name]: value}));
+  };
 
-    if (this.state.review.length < 50 || this.state.review.length > 300 || this.state.rating < 1) {
-      this.setState({submitButtonDisabled: true});
-      console.log(`true: ` + this.state.review.length);
-    } else {
-      this.setState({submitButtonDisabled: false});
-      console.log(`false: ` + this.state.review.length);
-    }
-  }
+  const isFormFieldsFill = () => (
+    review.length < 50 || review.length > 300 || rating < 1
+  );
 
-  render() {
-
-    return (
-      <form className="reviews__form form" action="#" method="post"
-        onSubmit={this.handleSubmit}
-        ref={this.formRef}
-      >
-        <label className="reviews__label form__label" htmlFor="review">Your review</label>
-        <div className="reviews__rating-form form__rating">
-          <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" required=""
-            onChange={this.handleFieldChange}
-            disabled={this.state.formFieldDisabled}
-          />
-          <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
-            <svg className="form__star-image" width="37" height="33">
-              <use xlinkHref="#icon-star"></use>
-            </svg>
-          </label>
-
-          <input className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars" type="radio"
-            onChange={this.handleFieldChange}
-            disabled={this.state.formFieldDisabled}
-          />
-          <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
-            <svg className="form__star-image" width="37" height="33">
-              <use xlinkHref="#icon-star"></use>
-            </svg>
-          </label>
-
-          <input className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars" type="radio"
-            onChange={this.handleFieldChange}
-            disabled={this.state.formFieldDisabled}
-          />
-          <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
-            <svg className="form__star-image" width="37" height="33">
-              <use xlinkHref="#icon-star"></use>
-            </svg>
-          </label>
-
-          <input className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars" type="radio"
-            onChange={this.handleFieldChange}
-            disabled={this.state.formFieldDisabled}
-          />
-          <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
-            <svg className="form__star-image" width="37" height="33">
-              <use xlinkHref="#icon-star"></use>
-            </svg>
-          </label>
-
-          <input className="form__rating-input visually-hidden" name="rating" value="1" id="1-star" type="radio"
-            onChange={this.handleFieldChange}
-            disabled={this.state.formFieldDisabled}
-          />
-          <label htmlFor="1-star" className="reviews__rating-label form__rating-label" title="terribly">
-            <svg className="form__star-image" width="37" height="33">
-              <use xlinkHref="#icon-star"></use>
-            </svg>
-          </label>
-        </div>
-        <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" required="" maxLength="400"
-          onChange={this.handleFieldChange}
-          disabled={this.state.formFieldDisabled}
-        ></textarea>
-        <div className="reviews__button-wrapper">
-          <p className="reviews__help">
-            To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
-          </p>
-          <button className="reviews__submit form__submit button" type="submit" disabled={this.state.submitButtonDisabled} >
-            Submit
-          </button>
-        </div>
-        <p
-          ref={this.errorRef}
-          style={{color: `red`, fontSize: `16`}}
+  return (
+    <form className="reviews__form form" action="#" method="post"
+      onSubmit={(evt) => handleSubmit(evt)}
+    >
+      <label className="reviews__label form__label" htmlFor="review">Your review</label>
+      <div className="reviews__rating-form form__rating">
+        <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" required=""
+          onChange={(evt) => handleFieldChange(evt)}
+          disabled={isFormFieldDisabled}
+          checked={rating === `5`}
         />
-      </form>
-    );
-  }
-}
+        <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
+          <svg className="form__star-image" width="37" height="33">
+            <use xlinkHref="#icon-star"></use>
+          </svg>
+        </label>
+
+        <input className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars" type="radio"
+          onChange={(evt) => handleFieldChange(evt)}
+          disabled={isFormFieldDisabled}
+          checked={rating === `4`}
+        />
+        <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
+          <svg className="form__star-image" width="37" height="33">
+            <use xlinkHref="#icon-star"></use>
+          </svg>
+        </label>
+
+        <input className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars" type="radio"
+          onChange={(evt) => handleFieldChange(evt)}
+          disabled={isFormFieldDisabled}
+          checked={rating === `3`}
+        />
+        <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
+          <svg className="form__star-image" width="37" height="33">
+            <use xlinkHref="#icon-star"></use>
+          </svg>
+        </label>
+
+        <input className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars" type="radio"
+          onChange={(evt) => handleFieldChange(evt)}
+          disabled={isFormFieldDisabled}
+          checked={rating === `2`}
+        />
+        <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
+          <svg className="form__star-image" width="37" height="33">
+            <use xlinkHref="#icon-star"></use>
+          </svg>
+        </label>
+
+        <input className="form__rating-input visually-hidden" name="rating" value="1" id="1-star" type="radio"
+          onChange={(evt) => handleFieldChange(evt)}
+          disabled={isFormFieldDisabled}
+          checked={rating === `1`}
+        />
+        <label htmlFor="1-star" className="reviews__rating-label form__rating-label" title="terribly">
+          <svg className="form__star-image" width="37" height="33">
+            <use xlinkHref="#icon-star"></use>
+          </svg>
+        </label>
+      </div>
+      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" required="" maxLength="400"
+        onChange={(evt) => handleFieldChange(evt)}
+        disabled={isFormFieldDisabled}
+        value={review}
+      ></textarea>
+      <div className="reviews__button-wrapper">
+        <p className="reviews__help">
+          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
+        </p>
+        <button
+          className="reviews__submit form__submit button"
+          type="submit"
+          disabled={isFormFieldsFill() || isSubmitButtonDisabled}
+        >
+          Submit
+        </button>
+      </div>
+      <p style={{color: `red`, fontSize: `16`}} hidden={!isSubmitError}>Something went wrong. Please try again later.</p>
+
+    </form>
+  );
+};
 
 CommentForm.propTypes = {
   onSubmitAction: PropTypes.func.isRequired,
